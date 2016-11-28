@@ -13,6 +13,8 @@ public class Main {
 			
 			while( p1hasMove || p2hasMove) {
 				logic.printBoardState();
+				System.out.println("\n");
+				System.out.println(logic.getScore());
 				System.out.println("\n\n");
 				ArrayList<FieldPosition> moves = logic.getPossibleMoves(currentPlayer);
 				System.out.println("Possible Moves for " + currentPlayer);
@@ -32,9 +34,12 @@ public class Main {
 				else { currentPlayer = FieldType.player1; }
 			}
 			logic.printBoardState();
+			System.out.println("\n");
+			System.out.println(logic.getScore());
 			
 		} catch (Exception e) {
 			System.out.println("Failed to init logic: " + e);
+			
 		}
 
 	}
