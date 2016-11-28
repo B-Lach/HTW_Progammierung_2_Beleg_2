@@ -5,6 +5,10 @@ import logic.*;
 public class Main {
 
 	public static void main(String[] args) {
+		consoleExample();
+	}
+	
+	private static void consoleExample() {
 		try {
 			BoardLogic logic = new BoardLogic();
 			Boolean p1hasMove = true;
@@ -39,9 +43,7 @@ public class Main {
 			
 		} catch (Exception e) {
 			System.out.println("Failed to init logic: " + e);
-			
 		}
-
 	}
 
 }
