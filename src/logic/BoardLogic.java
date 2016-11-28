@@ -40,6 +40,14 @@ public class BoardLogic {
 	}
 	
 	/**
+	 * Function to get the current state
+	 * @return The current state
+	 */
+	public FieldType[][] getBoardState() {
+		return boardState;
+	}
+	
+	/**
 	 * Prepares the board for usage after initialization
 	 */
 	private void boardSetup() {
