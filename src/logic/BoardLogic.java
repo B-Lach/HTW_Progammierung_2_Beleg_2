@@ -40,6 +40,14 @@ public class BoardLogic {
 	}
 	
 	/**
+	 * Function to get the current state
+	 * @return The current state
+	 */
+	public FieldType[][] getBoardState() {
+		return boardState;
+	}
+	
+	/**
 	 * Prepares the board for usage after initialization
 	 */
 	private void boardSetup() {
@@ -112,6 +120,32 @@ public class BoardLogic {
 		
 		
 		return hbp || hfp || vbp || vfp || dbp || dfp; 
+	}
+	
+	public Score getScore() {
+		int p1score = 0;
+		int p2score = 0;
+		
+		// iterate over the board and allocate the current score
+		for(int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				FieldType type = boardState[i][j];
+				
+				switch(type) {
+				case player1:
+					p1score++;
+					break;
+				case player2:
+					p2score++;
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		Score currentScore = new Score(p1score, p2score);
+		
+		return currentScore;
 	}
 	
 	private FieldType getEnemy(FieldType player) {
