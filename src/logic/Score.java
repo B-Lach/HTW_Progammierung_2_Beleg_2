@@ -14,11 +14,11 @@ public class Score {
 		this.p2 = p2;
 	}
 
-	public int getP1() {
+	public int p1() {
 		return p1;
 	}
 
-	public int getP2() {
+	public int p2() {
 		return p2;
 	}
 	
