@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  */
 
-public class BoardLogic {
+public class BoardLogic implements Cloneable {
 	private FieldType[][] boardState;
 	private int size;
 	
@@ -483,4 +483,24 @@ public class BoardLogic {
 			System.out.println();
 		}
 	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		// Clone the state object
+		BoardLogic clone = (BoardLogic) super.clone();
+		// We have to initialize a new FieldType array. 
+		// Using clone.boardstate.clone() does generate a clone BUT the second dimension is still a reference to the original object 
+		// -> We would change the original state but we don't want to 
+		FieldType[][] state = new FieldType[this.size][this.size];
+		
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				state[i][j] = this.boardState[i][j];
+			}
+		}
+		
+		clone.boardState = state;
+        
+		return clone;
+    }
 }
