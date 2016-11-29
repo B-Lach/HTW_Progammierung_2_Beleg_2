@@ -1,8 +1,8 @@
-package ui;
+package gui;
 
 public class UserInterface {
 	
-	public void generateUI() {
+	public void generateGUI() {
 		
 	}
 }
