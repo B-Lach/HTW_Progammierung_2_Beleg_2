@@ -2,5 +2,6 @@ package ai;
 
 public enum Difficulty {
 	Easy,
-	Medium
+	Medium,
+	Hard
 }
