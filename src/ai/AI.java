@@ -11,9 +11,10 @@ import logic.*;
  */
 public class AI {
 	/**
-	 * Class function to get the next move for the computer
+	 * Class function to get the next move for the committed player based on a given difficulty 
 	 * @param difficulty The difficulty of the AI
 	 * @param currentState The current state of the game
+	 * @param player The current player
 	 * @return The next move the computer wants to perform. Return statement is null if there is no move possible
 	 */
 	public static FieldPosition getNextMove(Difficulty difficulty, BoardLogic currentState, FieldType player) {
@@ -33,7 +34,8 @@ public class AI {
 	 * Function to calculate the next move for the easy difficulty
 	 * 
 	 * @param currentState The current state of the game
-	 * @return The next move the computer wants to perform. Return statement is null if there is no move possible
+	 * @param player The player that wants to make the move
+	 * @return The next calculated move for the committed player. Return statement is null if there is no move possible
 	 */
 	private static FieldPosition makeEasyMove(BoardLogic currentState, FieldType player) {
 		// Fetch all possible moves
@@ -54,7 +56,8 @@ public class AI {
 	 * Function to calculate the next move for the medium difficulty
 	 * 
 	 * @param currentState The current state of the game
-	 * @return The next move the computer wants to perform. Return statement is null if there is no move possible
+	 * @param player The player that wants to make the move
+	 * @return The next calculated move for the committed player. Return statement is null if there is no move possible
 	 */
 	private static FieldPosition makeMediumMove(BoardLogic currentState, FieldType player) {
 		// Fetch all possible moves
@@ -93,7 +96,13 @@ public class AI {
 		// There is no move available
 		return null;
 	}
-	
+	/**
+	 * Function to calculate the next move for the medium difficulty
+	 * 
+	 * @param currentState The current state of the game
+	 * @param player The player that wants to make the move
+	 * @return The next calculated move for the committed player. Return statement is null if there is no move possible
+	 */
 	private static FieldPosition makeHardMove(BoardLogic currentState, FieldType player) {
 		// Fetch all possible moves
 		// Perform each move on a copy of the current state to calculate the best possible move for this round
