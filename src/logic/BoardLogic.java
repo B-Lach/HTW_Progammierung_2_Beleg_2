@@ -47,6 +47,14 @@ public class BoardLogic implements Cloneable {
 	}
 	
 	/**
+	 * Method to get the size of the board
+	 * @return The size
+	 */
+	public int getBoardSize() {
+		return size;
+	}
+	
+	/**
 	 * Method to get all possible moves for a player based on the current state of the board
 	 * @param player The player you want to get the moves for 
 	 * @return An array containing all possible moves. The array will be empty if there is no move possible
