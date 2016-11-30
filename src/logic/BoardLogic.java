@@ -53,7 +53,7 @@ public class BoardLogic implements Cloneable {
 	 */
 	public ArrayList<FieldPosition> getPossibleMoves(FieldType player) {
 		ArrayList<FieldPosition> moves = new ArrayList<FieldPosition>();
-		if (player == FieldType.empty) {
+		if (player == FieldType.Empty) {
 			System.out.println("Empty is not a valid player");
 			return moves;
 		}
@@ -63,7 +63,7 @@ public class BoardLogic implements Cloneable {
 		for (int i = 0; i < size; i++) {
 			for(int j = 0; j < size; j++) {
 				FieldType type = boardState[i][j];
-				if (type == FieldType.empty) {
+				if (type == FieldType.Empty) {
 					Boolean horizontal = horizontalMovePossible(player, j, i); 
 					Boolean vertical = verticalMovePossible(player, j, i);
 					Boolean diagonal = diagonalMovePossible(player, j, i);
@@ -87,7 +87,7 @@ public class BoardLogic implements Cloneable {
 	 */
 	public Boolean makeMove(FieldType player, FieldPosition p) {
 		// Empty is not a valid player
-		if (player == FieldType.empty) { System.out.println("Empty is not a valid player"); return false;}
+		if (player == FieldType.Empty) { System.out.println("Empty is not a valid player"); return false;}
 		
 		// We have to check first which moves are possible from the given position 
 		Boolean hbp = horizontalBackwardMovePossible(player, p.getX(), p.getY());
@@ -128,10 +128,10 @@ public class BoardLogic implements Cloneable {
 				FieldType type = boardState[i][j];
 				
 				switch(type) {
-				case player1:
+				case Player1:
 					p1score++;
 					break;
-				case player2:
+				case Player2:
 					p2score++;
 					break;
 				default:
@@ -161,8 +161,8 @@ public class BoardLogic implements Cloneable {
 			System.out.print(" "+i+" ");
 			for (int j = 0; j < size; j++) {
 				String value = " ";
-				if (boardState[i][j] == FieldType.player1) { value = p1; }
-				if (boardState[i][j] == FieldType.player2) { value = p2; }
+				if (boardState[i][j] == FieldType.Player1) { value = p1; }
+				if (boardState[i][j] == FieldType.Player2) { value = p2; }
 						
 				System.out.print("["+ value + "]");
 			}
@@ -201,14 +201,14 @@ public class BoardLogic implements Cloneable {
 		
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				boardState[i][j] = FieldType.empty;
+				boardState[i][j] = FieldType.Empty;
 			}
 		}
 		
-		boardState[(size/2) - 1][(size/2) - 1] = FieldType.player1;
-		boardState[(size/2) - 1][(size/2) ] = FieldType.player2;
-		boardState[(size/2)][(size/2) - 1] = FieldType.player2;
-		boardState[(size/2)][(size/2) ] = FieldType.player1;
+		boardState[(size/2) - 1][(size/2) - 1] = FieldType.Player1;
+		boardState[(size/2) - 1][(size/2) ] = FieldType.Player2;
+		boardState[(size/2)][(size/2) - 1] = FieldType.Player2;
+		boardState[(size/2)][(size/2) ] = FieldType.Player1;
 	}
 	
 	/**
@@ -217,8 +217,8 @@ public class BoardLogic implements Cloneable {
 	 * @return The enemy
 	 */
 	private FieldType getEnemy(FieldType player) {
-		if (player == FieldType.player1) { return FieldType.player2; }
-		return FieldType.player1;
+		if (player == FieldType.Player1) { return FieldType.Player2; }
+		return FieldType.Player1;
 	}
 	
 	/**
@@ -348,11 +348,11 @@ public class BoardLogic implements Cloneable {
 	 */
 	private Boolean horizontalForwardMovePossible(FieldType player, int x, int y) {
 		// if the given position is not empty return false
-		if (boardState[y][x] != FieldType.empty) { return false; }
+		if (boardState[y][x] != FieldType.Empty) { return false; }
 		// if the given position x value == size-1 return false
 		if (x == size-1) { return false; }
 		// if the given position x value+1 == player or is empty return false 
-		if (boardState[y][x+1] == player || boardState[y][x+1] == FieldType.empty) { return false; }
+		if (boardState[y][x+1] == player || boardState[y][x+1] == FieldType.Empty) { return false; }
 
 		int playerCount = 0;
 		int emptyCount = 0;
@@ -363,7 +363,7 @@ public class BoardLogic implements Cloneable {
 			if (boardState[y][i] == player) {
 				playerCount++; 
 			} 
-			if (boardState[y][i] == FieldType.empty) { 
+			if (boardState[y][i] == FieldType.Empty) { 
 				emptyCount++; 
 			}
 			// if an empty field was found exit the loop 
@@ -381,11 +381,11 @@ public class BoardLogic implements Cloneable {
 	 */
 	private Boolean horizontalBackwardMovePossible(FieldType player, int x, int y) {
 		// if the given position is not empty return false
-		if (boardState[y][x] != FieldType.empty) { return false; }
+		if (boardState[y][x] != FieldType.Empty) { return false; }
 		// if the given position x value == 0 return false
 		if (x == 0) { return false; }
 		// if the given position x value-1 == player or is empty return false 
-		if (boardState[y][x-1] == player || boardState[y][x-1] == FieldType.empty) { return false; }
+		if (boardState[y][x-1] == player || boardState[y][x-1] == FieldType.Empty) { return false; }
 		
 		int playerCount = 0;
 		int emptyCount = 0;
@@ -396,7 +396,7 @@ public class BoardLogic implements Cloneable {
 			if (boardState[y][i] == player) {
 				playerCount++; 
 			} 
-			if (boardState[y][i] == FieldType.empty) { 
+			if (boardState[y][i] == FieldType.Empty) { 
 				emptyCount++; 
 			}
 			// if an empty field was found exit the loop 
@@ -429,11 +429,11 @@ public class BoardLogic implements Cloneable {
 	 */
 	private Boolean verticalBackwardMovePossible(FieldType player, int x, int y) {
 		// if the given position is not empty return false
-		if (boardState[y][x] != FieldType.empty) { return false; }
+		if (boardState[y][x] != FieldType.Empty) { return false; }
 		// if the given position y value == 0 return false
 		if (y == 0) { return false; }
 		// if the given position y value-1 == player or is empty return false 
-		if (boardState[y-1][x] == player || boardState[y-1][x] == FieldType.empty) { return false; }
+		if (boardState[y-1][x] == player || boardState[y-1][x] == FieldType.Empty) { return false; }
 
 		int playerCount = 0;
 		int emptyCount = 0;
@@ -442,7 +442,7 @@ public class BoardLogic implements Cloneable {
 			if (boardState[i][x] == player) {
 				playerCount++; 
 			} 
-			if (boardState[i][x] == FieldType.empty) { 
+			if (boardState[i][x] == FieldType.Empty) { 
 				emptyCount++; 
 			}
 			// if an empty field was found exit the loop 
@@ -460,11 +460,11 @@ public class BoardLogic implements Cloneable {
 	 */
 	private Boolean verticalForwardMovePossible(FieldType player, int x, int y) {
 		// if the given position is not empty return false
-		if (boardState[y][x] != FieldType.empty) { return false; }
+		if (boardState[y][x] != FieldType.Empty) { return false; }
 		// if the given position y value == size-1 return false
 		if (y == size-1) { return false; }
 		// if the given position y value+1 == player or is empty return false 
-		if (boardState[y+1][x] == player || boardState[y+1][x] == FieldType.empty) { return false; }
+		if (boardState[y+1][x] == player || boardState[y+1][x] == FieldType.Empty) { return false; }
 
 		int playerCount = 0;
 		int emptyCount = 0;
@@ -475,7 +475,7 @@ public class BoardLogic implements Cloneable {
 			if (boardState[i][x] == player) {
 				playerCount++; 
 			} 
-			if (boardState[i][x] == FieldType.empty) { 
+			if (boardState[i][x] == FieldType.Empty) { 
 				emptyCount++; 
 			}
 			// if an empty field was found exit the loop 
@@ -509,11 +509,11 @@ public class BoardLogic implements Cloneable {
 	 */
 	private Boolean diagonalBackwardMovePossible(FieldType player, int x, int y) {
 		// if the given position is not empty return false
-		if (boardState[y][x] != FieldType.empty) { return false; }
+		if (boardState[y][x] != FieldType.Empty) { return false; }
 		// if the given position y value == 0 or x value == 0 return false
 		if (y == 0 || x == 0) { return false; }
 		// if the given position -1 == player or is empty return false 
-		if (boardState[y-1][x-1] == player || boardState[y-1][x-1] == FieldType.empty) { return false; }
+		if (boardState[y-1][x-1] == player || boardState[y-1][x-1] == FieldType.Empty) { return false; }
 
 		int playerCount = 0;
 		int emptyCount = 0;
@@ -526,7 +526,7 @@ public class BoardLogic implements Cloneable {
 			currentY -= 2;
 			for(int i = currentX-2; i >= 0; i--) {
 				if (boardState[currentY][i] == player) { playerCount++; }
-				if (boardState[currentY][i] == FieldType.empty) { emptyCount++; }
+				if (boardState[currentY][i] == FieldType.Empty) { emptyCount++; }
 				if (emptyCount > 0) { i = -1; }
 				currentY--;
 			}
@@ -534,7 +534,7 @@ public class BoardLogic implements Cloneable {
 			currentX -= 2;
 			for (int i = currentY-2; i >= 0; i--) {
 				if (boardState[i][currentX] == player) { playerCount++; }
-				if (boardState[i][currentX] == FieldType.empty) { emptyCount++; }
+				if (boardState[i][currentX] == FieldType.Empty) { emptyCount++; }
 				if (emptyCount > 0) { i = -1; }
 				currentX--;
 			}
@@ -551,11 +551,11 @@ public class BoardLogic implements Cloneable {
 	 */
 	private Boolean diagonalForwardMovePossible(FieldType player, int x, int y) {
 		// if the given position is not empty return false
-		if (boardState[y][x] != FieldType.empty) { return false; }
+		if (boardState[y][x] != FieldType.Empty) { return false; }
 		// if the given position y value == size-1 or x value == size-1 return false
 		if (y == size-1 || x == size-1) { return false; }
 		// if the given position +1 == player or is empty return false 
-		if (boardState[y+1][x+1] == player || boardState[y+1][x+1] == FieldType.empty) { return false; }
+		if (boardState[y+1][x+1] == player || boardState[y+1][x+1] == FieldType.Empty) { return false; }
 
 		int playerCount = 0;
 		int emptyCount = 0;
@@ -568,7 +568,7 @@ public class BoardLogic implements Cloneable {
 			currentY += 2;
 			for(int i = currentX+2; i < size; i++) {
 				if (boardState[currentY][i] == player) { playerCount++; }
-				if (boardState[currentY][i] == FieldType.empty) { emptyCount++; }
+				if (boardState[currentY][i] == FieldType.Empty) { emptyCount++; }
 				if (emptyCount > 0) { i = size; }
 				currentY++;
 			}
@@ -576,7 +576,7 @@ public class BoardLogic implements Cloneable {
 			currentX += 2;
 			for (int i = currentY+2; i < size; i++) {
 				if (boardState[i][currentX] == player) { playerCount++; }
-				if (boardState[i][currentX] == FieldType.empty) { emptyCount++; }
+				if (boardState[i][currentX] == FieldType.Empty) { emptyCount++; }
 				if (emptyCount > 0) { i = size; }
 				currentX++;
 			}

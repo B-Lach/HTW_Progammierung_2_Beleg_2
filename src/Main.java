@@ -13,7 +13,7 @@ public class Main {
 			BoardLogic logic = new BoardLogic();
 			Boolean p1hasMove = true;
 			Boolean p2hasMove = true;
-			FieldType currentPlayer = FieldType.player1;
+			FieldType currentPlayer = FieldType.Player1;
 			
 			while( p1hasMove || p2hasMove) {
 				logic.printBoardState();
@@ -28,14 +28,14 @@ public class Main {
 					System.out.println("Player " + currentPlayer + " will make move: " + p + "\n\n");
 					logic.makeMove(currentPlayer, p);
 					
-					if (currentPlayer == FieldType.player1) { p1hasMove = true;}
+					if (currentPlayer == FieldType.Player1) { p1hasMove = true;}
 					else { p2hasMove = true; }
 				} else {
-					if (currentPlayer == FieldType.player1) { p1hasMove = false;}
+					if (currentPlayer == FieldType.Player1) { p1hasMove = false;}
 					else { p2hasMove = false; }
 				}
-				if (currentPlayer == FieldType.player1) { currentPlayer = FieldType.player2;}
-				else { currentPlayer = FieldType.player1; }
+				if (currentPlayer == FieldType.Player1) { currentPlayer = FieldType.Player2;}
+				else { currentPlayer = FieldType.Player1; }
 			}
 			logic.printBoardState();
 			System.out.println("\n");

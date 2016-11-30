@@ -18,7 +18,7 @@ public class AI {
 	 * @return The next move the computer wants to perform. Return statement is null if there is no move possible
 	 */
 	public static FieldPosition getNextMove(Difficulty difficulty, BoardLogic currentState, FieldType player) {
-		if (player == FieldType.empty) { System.out.println("Empty is not a valid player"); return null; }
+		if (player == FieldType.Empty) { System.out.println("Empty is not a valid player"); return null; }
 		
 		switch (difficulty) {
 			case Easy:
@@ -79,7 +79,7 @@ public class AI {
 					// Perform a dry move on the copied state
 					stateCopy.makeMove(player, moveToPerform);
 					Score score = stateCopy.getScore();
-					int _points = player == FieldType.player1 ? score.p1() : score.p2();
+					int _points = player == FieldType.Player1 ? score.p1() : score.p2();
 					// if the points the computer will get are higher save the current index to track them
 					if (points < _points) {
 						moveIndex = i;
@@ -113,9 +113,9 @@ public class AI {
 		if (!moves.isEmpty()) {
 			// Track the score and made move to decide which move should be performed at the end
 			int moveIndex = 0;
-			int points = player == FieldType.player1 ? currentState.getScore().p1() : currentState.getScore().p2();
-			int enemyPoints = player == FieldType.player1 ? currentState.getScore().p2() : currentState.getScore().p1();
-			FieldType enemy = player == FieldType.player1 ? FieldType.player2 : FieldType.player1; 
+			int points = player == FieldType.Player1 ? currentState.getScore().p1() : currentState.getScore().p2();
+			int enemyPoints = player == FieldType.Player1 ? currentState.getScore().p2() : currentState.getScore().p1();
+			FieldType enemy = player == FieldType.Player1 ? FieldType.Player2 : FieldType.Player1; 
 			
 			for (int i = 0; i < moves.size(); i++) {
 				// Make a copy of the current state to perform actions without side effects to the real board state
@@ -127,8 +127,8 @@ public class AI {
 					stateCopy.makeMove(player, moveToPerform);
 					// get the best move of the enemy based on the dry state
 					Score score = stateCopy.getScore();
-					int _points = player == FieldType.player1 ? score.p1() : score.p2();
-					int _enemyPoints = player == FieldType.player1 ? score.p2() : score.p1();
+					int _points = player == FieldType.Player1 ? score.p1() : score.p2();
+					int _enemyPoints = player == FieldType.Player1 ? score.p2() : score.p1();
 					FieldPosition enemyMove = makeMediumMove(stateCopy, enemy);
 					// We could perform a move where the enemy has no option to make a move afterwards 
 					if (enemyMove != null ) {
@@ -137,8 +137,8 @@ public class AI {
 
 						// Get the points for both the computer and the enemy
 						score = stateCopy.getScore();
-						_points = player == FieldType.player1 ? score.p1() : score.p2();
-						_enemyPoints = player == FieldType.player1 ? score.p2() : score.p1(); 
+						_points = player == FieldType.Player1 ? score.p1() : score.p2();
+						_enemyPoints = player == FieldType.Player1 ? score.p2() : score.p1(); 
 					}
 					// if the points the computer will get are higher or the points of the enemy will get are lower save the current index to track the move
 					if (points < _points || (_points >= points && _enemyPoints < enemyPoints)) {
