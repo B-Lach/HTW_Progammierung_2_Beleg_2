@@ -39,4 +39,15 @@ public class FieldPosition {
 	public String toString() {
 		return "\n(x: " + x + " y: " + y + ")";
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) { return true; }
+		if (o == null) { return false; }
+		if (this.getClass() != o.getClass()) { return false; }
+		
+		FieldPosition p = (FieldPosition) o;
+		return this.x == p.x && this.y == p.y;
+		
+	}
 }
