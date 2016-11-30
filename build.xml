@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<project name="Reversi" default="info">
+  <property name="src.dir" value="src"/>
+  <property name="src.dir.test" value="src/tests"/>
+  <property name="build.dir" value="bin"/>
+
+  <path id="classpath.test">
+    <pathelement location="lib/junit.jar"/>
+    <pathelement location="lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${build.dir}"/>
+  </path>
+
+  <target name="info" description="Print desccription of the project">
+    <echo>Reversi implemented using Java and Swing</echo>
+  </target>
+
+  <target name="compile" description="Compile main sources">
+    <mkdir dir="${build.dir}"/>
+    <javac destdir="${build.dir}" debug="true" deprecation="false" optimize="false" failonerror="true" includeantruntime="false">
+      <exclude name="**/tests/*.java" />
+      <src path="${src.dir}"/>
+    </javac>
+    <echo message="Compiled main sources"/>
+  </target>
+
+  <target name="compile-test" depends="compile" description="Compile test sources">
+    <javac srcdir="${src.dir.test}" destdir="${build.dir}" debug="true" deprecation="false" optimize="false" failonerror="true" includeantruntime="false">
+      <classpath refid="classpath.test"/>
+    </javac>
+    <echo message="Compiled test sources"/>
+  </target>
+
+  <target name="test" depends="compile-test" description="Execute tests">
+    <junit printsummary="on" haltonfailure="yes" fork="true">
+      <classpath>
+        <path refid="classpath.test"/>
+        <pathelement location="${build.dir}"/>
+      </classpath>
+
+      <formatter type="brief" usefile="false" />
+      <batchtest>
+        <fileset dir="${src.dir}" includes="**/*Tests.java" />
+      </batchtest>
+    </junit>
+    <echo message="Testing done"/>
+  </target>
+
+  <target name="clean" description="Remove all genereate files">
+    <delete dir="bin"/>
+    <echo message="Removed bin folder"/>
+  </target>
+
+</project>

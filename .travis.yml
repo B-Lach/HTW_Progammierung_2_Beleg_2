@@ -1,0 +1,4 @@
+language: java
+
+notifications:
+  slack: htw-ai:nRNMESv7EpbtcdP28CeZKbfR
