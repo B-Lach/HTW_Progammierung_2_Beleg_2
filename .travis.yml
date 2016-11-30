@@ -2,3 +2,6 @@ language: java
 
 notifications:
   slack: htw-ai:nRNMESv7EpbtcdP28CeZKbfR
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
