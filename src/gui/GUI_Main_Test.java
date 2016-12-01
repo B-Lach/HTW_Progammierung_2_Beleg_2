@@ -92,7 +92,7 @@ public class GUI_Main_Test extends JFrame {
 		contentPane.setBackground(Color.MAGENTA);
 		contentPane.setBorder(new EmptyBorder(100, 100, 100, 100));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(new BorderLayout(15, 40));
 	}
 
 }
