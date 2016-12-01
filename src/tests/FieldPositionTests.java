@@ -27,5 +27,12 @@ public class FieldPositionTests {
 		assertEquals("Equality Check with same values is not true", true, p.equals(p2));
 		assertEquals("Equality Check with different values is not false", false, p.equals(p3));
 	}
-
+	
+	@Test
+	public void test_toString() {
+		FieldPosition p = new FieldPosition(1, 3);
+		System.out.println(p.toString());
+		System.out.println("(x: 1 y: 3)");
+		assertEquals("toString() is not correct", "\n(x: 1 y: 3)", p.toString());
+	}
 }
