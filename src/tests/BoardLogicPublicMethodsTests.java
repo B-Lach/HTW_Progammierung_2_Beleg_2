@@ -101,6 +101,13 @@ public class BoardLogicPublicMethodsTests {
 	}
 	
 	@Test
+	public void test_possibleMoveCountEmpty() {
+		BoardLogic logic = new BoardLogic();
+		ArrayList<FieldPosition> moves = logic.getPossibleMoves(FieldType.Empty);
+		
+		assertEquals("Possible moves are not 0", 0, moves.size());
+	}
+	@Test
 	public void test_possibleMoveCountPlayer1() {
 		BoardLogic logic = new BoardLogic();
 		ArrayList<FieldPosition> moves = logic.getPossibleMoves(FieldType.Player1);
