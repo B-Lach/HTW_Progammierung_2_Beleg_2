@@ -118,7 +118,7 @@ public class GUI_Main_Test extends JFrame {
 		
 	}
 	
-	//muss noch umgeschrieben werden damit felder außerhalb von 3x3 erkannt werden
+	//muss noch umgeschrieben werden damit felder ausserhalb von 3x3 erkannt werden
 	class CMeinMausAdapter extends MouseAdapter {
 		// x und y sind mauszeiger koordinaten
 		public void mousePressed(MouseEvent e) {

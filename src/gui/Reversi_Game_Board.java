@@ -29,7 +29,7 @@ public class Reversi_Game_Board {
 		}
 	}
 	
-	// ist erst mal nur drin damits läuft wird später natürlich entfernt
+	// ist erst mal nur drin damits laeuft wird spaeter natuerlich entfernt
 	int gewonnen() {
 		int w = 0;
 		// Test auf 3 Steine
