@@ -10,6 +10,8 @@ import logic.*;
  *
  */
 public class AI {
+	private static final Random rn = new Random();
+	
 	/**
 	 * Class function to get the next move for the committed player based on a given difficulty 
 	 * @param difficulty The difficulty of the AI
@@ -44,9 +46,7 @@ public class AI {
 		ArrayList<FieldPosition> moves = currentState.getPossibleMoves(player);
 		
 		if (!moves.isEmpty()) {
-			Random rn = new Random();
-			// return one of the possible moves selected randomly
-			return moves.get(rn.nextInt(moves.size()));
+			return getRandomObject(moves);
 		}
 		// There is no move available
 		return null;
@@ -67,7 +67,7 @@ public class AI {
 		
 		if (!moves.isEmpty()) {
 			// Track the score and made move to decide which move should be performed at the end
-			int moveIndex = 0;
+			ArrayList<Integer> bestMoveIndexes = new ArrayList<Integer>();
 			int points = 0;
 			
 			for (int i = 0; i < moves.size(); i++) {
@@ -82,8 +82,11 @@ public class AI {
 					int _points = player == FieldType.Player1 ? score.p1() : score.p2();
 					// if the points the computer will get are higher save the current index to track them
 					if (points < _points) {
-						moveIndex = i;
+						bestMoveIndexes.clear();
+						bestMoveIndexes.add(i);
 						points = _points;
+					} else if (points == _points) {
+						bestMoveIndexes.add(i);
 					}
 				} catch (Exception e) {
 					System.err.println("Failed to copy the boardState");
@@ -91,7 +94,8 @@ public class AI {
 				}
 			}
 			// return the best move  
-			return moves.get(moveIndex);
+			int index = getRandomObject(bestMoveIndexes);
+			return moves.get(index);
 		}
 		// There is no move available
 		return null;
@@ -156,5 +160,16 @@ public class AI {
 		}
 		// There is no move available
 		return null;
+	}
+	
+	/**
+	 * Method to get a random selected object based on a given list
+	 * @param indices The list
+	 * @return Random selected object
+	 */
+	private static <T> T getRandomObject(ArrayList<T> indices) {
+		T result = indices.get(rn.nextInt(indices.size()));
+		
+		return result;
 	}
 }
