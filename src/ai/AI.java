@@ -10,6 +10,8 @@ import logic.*;
  *
  */
 public class AI {
+	private static final Random rn = new Random();
+	
 	/**
 	 * Class function to get the next move for the committed player based on a given difficulty 
 	 * @param difficulty The difficulty of the AI
@@ -44,9 +46,7 @@ public class AI {
 		ArrayList<FieldPosition> moves = currentState.getPossibleMoves(player);
 		
 		if (!moves.isEmpty()) {
-			Random rn = new Random();
-			// return one of the possible moves selected randomly
-			return moves.get(rn.nextInt(moves.size()));
+			return getRandomObject(moves);
 		}
 		// There is no move available
 		return null;
@@ -67,7 +67,7 @@ public class AI {
 		
 		if (!moves.isEmpty()) {
 			// Track the score and made move to decide which move should be performed at the end
-			int moveIndex = 0;
+			ArrayList<Integer> bestMoveIndices = new ArrayList<Integer>();
 			int points = 0;
 			
 			for (int i = 0; i < moves.size(); i++) {
@@ -82,20 +82,27 @@ public class AI {
 					int _points = player == FieldType.Player1 ? score.p1() : score.p2();
 					// if the points the computer will get are higher save the current index to track them
 					if (points < _points) {
-						moveIndex = i;
+						bestMoveIndices.clear();
+						bestMoveIndices.add(i);
 						points = _points;
+					} else if (points == _points) {
+						bestMoveIndices.add(i);
 					}
 				} catch (Exception e) {
 					System.err.println("Failed to copy the boardState");
 					return null;
 				}
 			}
-			// return the best move  
-			return moves.get(moveIndex);
+			// return randomly one of the best moves
+			if (!bestMoveIndices.isEmpty()) {
+				int index = getRandomObject(bestMoveIndices);
+				return moves.get(index);
+			}
 		}
 		// There is no move available
 		return null;
 	}
+	
 	/**
 	 * Function to calculate the next move for the medium difficulty
 	 * 
@@ -111,8 +118,9 @@ public class AI {
 		ArrayList<FieldPosition> moves = currentState.getPossibleMoves(player);
 		
 		if (!moves.isEmpty()) {
+			// Save all possible moves in a list
+			ArrayList<Integer> bestMoveIndices = new ArrayList<Integer>();
 			// Track the score and made move to decide which move should be performed at the end
-			int moveIndex = 0;
 			int points = player == FieldType.Player1 ? currentState.getScore().p1() : currentState.getScore().p2();
 			int enemyPoints = player == FieldType.Player1 ? currentState.getScore().p2() : currentState.getScore().p1();
 			FieldType enemy = player == FieldType.Player1 ? FieldType.Player2 : FieldType.Player1; 
@@ -140,21 +148,40 @@ public class AI {
 						_points = player == FieldType.Player1 ? score.p1() : score.p2();
 						_enemyPoints = player == FieldType.Player1 ? score.p2() : score.p1(); 
 					}
-					// if the points the computer will get are higher or the points of the enemy will get are lower save the current index to track the move
+					// if the points the computer will get are higher or the points the enemy will get are lower 
+					// clear the list and add the index
 					if (points < _points || (_points >= points && _enemyPoints < enemyPoints)) {
-						moveIndex = i;
+						bestMoveIndices.clear();
+						bestMoveIndices.add(i);
 						points = _points;
 						enemyPoints = _enemyPoints;
+						// if the move has the same effect as the best move add the index to the list
+					} else if (points == _points && enemyPoints == _enemyPoints) {
+						bestMoveIndices.add(i);
 					}
 				} catch (Exception e) {
 					System.err.println("Failed to copy the boardState: \n" + e);
 					return null;
 				}
 			}
-			// return the best move  
-			return moves.get(moveIndex);
+			// return randomly one of the best moves 
+			if (!bestMoveIndices.isEmpty()) {
+				int index = getRandomObject(bestMoveIndices);
+				return moves.get(index);
+			}
 		}
 		// There is no move available
 		return null;
+	}
+	
+	/**
+	 * Method to get a random selected object based on a given list
+	 * @param indices The list
+	 * @return Random selected object
+	 */
+	private static <T> T getRandomObject(ArrayList<T> indices) {
+		T result = indices.get(rn.nextInt(indices.size()));
+		
+		return result;
 	}
 }
