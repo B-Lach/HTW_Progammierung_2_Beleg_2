@@ -1,14 +1,13 @@
 package logic;
 
 import java.util.ArrayList;
-
 /**
  * Class for handling the logic of a reversi game
  * @author Benny Lach
  *
  */
 public class BoardLogic implements Cloneable {
-	private FieldType[][] boardState;
+	protected FieldType[][] boardState;
 	private int size;
 
 	/**
