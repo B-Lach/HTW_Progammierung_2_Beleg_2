@@ -89,7 +89,7 @@ public class AI {
 						bestMoveIndices.add(i);
 					}
 				} catch (Exception e) {
-					System.err.println("Failed to copy the boardState");
+					System.err.println("Failed to copy the boardState: \n" + e);
 					return null;
 				}
 			}

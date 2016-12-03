@@ -9,7 +9,17 @@ import logic.*;
  *
  */
 class LogicMock extends BoardLogic {
+	public boolean throwCloneException = false;
+	
 	public void useStateForTest(FieldType[][] stateToUse) {
 		this.boardState = stateToUse;
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		if (!throwCloneException) {
+			return super.clone();
+		}
+		throw new CloneNotSupportedException("LogicMock: Somebody wanted to see an exception - here it is");
 	}
 }
