@@ -38,11 +38,11 @@ public class BoardLogic implements Cloneable {
 	}
 	
 	/**
-	 * Method to get the current state
+	 * Method to get a cloned version of the current state
 	 * @return The current state
 	 */
 	public FieldType[][] getBoardState() {
-		return boardState;
+		return getStateClone();
 	}
 	
 	/**
@@ -187,18 +187,26 @@ public class BoardLogic implements Cloneable {
 		// We have to initialize a new FieldType array. 
 		// Using clone.boardstate.clone() does generate a clone BUT the second dimension is still a reference to the original object 
 		// -> We would change the original state but we don't want to 
+		clone.boardState = getStateClone();
+        
+		return clone;
+    }
+	
+	/**
+	 * Method to get a clone of the current state
+	 * Used to guarantee immutability of the internal state
+	 * @return cloned state
+	 */
+	private FieldType[][] getStateClone() {
 		FieldType[][] state = new FieldType[this.size][this.size];
-		
+
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				state[i][j] = this.boardState[i][j];
 			}
 		}
-		
-		clone.boardState = state;
-        
-		return clone;
-    }
+		return state;
+	}
 	
 	/**
 	 * Prepares the board for usage after initialization

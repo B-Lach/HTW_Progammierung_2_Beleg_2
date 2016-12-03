@@ -330,6 +330,15 @@ public class BoardLogicTests {
 		}
 	}
 	
+	@Test
+	public void test_stateImmutabillity() {
+		BoardLogic logic = new BoardLogic();
+		FieldType[][] state = logic.getBoardState();
+		state[0][0] = FieldType.Player1;
+		
+		assertTrue("State is mutable from outside", logic.getBoardState()[0][0] == FieldType.Empty);
+	}
+	
 	private FieldType[][] getDefaultState() {
 		FieldType[][] state = {
 				{FieldType.Empty,FieldType.Empty,FieldType.Empty,FieldType.Empty,FieldType.Empty,FieldType.Empty},
