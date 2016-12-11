@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class BoardLogic implements Cloneable {
 	protected FieldType[][] boardState;
-	private int size;
+	private static int size;
 
 	/**
 	 * Constructor to initialize the board with a default size of 6x6
@@ -49,7 +49,7 @@ public class BoardLogic implements Cloneable {
 	 * Method to get the size of the board
 	 * @return The size
 	 */
-	public int getBoardSize() {
+	public static int getBoardSize() {
 		return size;
 	}
 	
