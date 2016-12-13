@@ -8,11 +8,22 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class PaintBoard extends JFrame {
-
-	int boardSize = BoardLogic.getBoardSize();
-	FieldType[][] board = new FieldType[boardSize][boardSize];
+public class PaintBoard extends JPanel {
+	private int boardSize;
+	private FieldType[][] board;
+	private BoardLogic logic;
+	
+	public PaintBoard(BoardLogic logic) {
+		boardSize = logic.getBoardSize();
+		board = logic.getBoardState();
+	}
+	
+	public void repaint(BoardLogic logic) {
+		board = logic.getBoardState();
+		repaint();
+	}
 	
 	public void paint(Graphics g) {
 		super.paintComponents(g);
@@ -35,10 +46,5 @@ public class PaintBoard extends JFrame {
 				g.setFont(new Font("Serif", Font.BOLD, 30));
 				g.drawString("" + ST, 70 + j * 60, 90 + i * 60);
 			}
-		g.setColor(Color.white);
-		g.fillRect(50, 260, 200, 30);
-		g.setColor(Color.black);
-		g.setFont(new Font("Serif", Font.BOLD, 20));
-
 	}
 }

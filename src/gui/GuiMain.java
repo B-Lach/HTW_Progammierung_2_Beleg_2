@@ -16,12 +16,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
+import javax.swing.JCheckBoxMenuItem;
 
 public class GuiMain extends JFrame {
-
 	static JPanel contentPane;
-	Difficulty difficulty;
-
+	public Difficulty difficulty;
+	
+	private BoardLogic logic;
+	private PaintBoard board;
 	/**
 	 * Launch the application.
 	 */
@@ -54,30 +56,31 @@ public class GuiMain extends JFrame {
 		
 		JMenuItem mntmxBoard = new JMenuItem("6x6 Board");
 		mnNewGame.add(mntmxBoard);
-		mntmxBoard.addActionListener(new Board6());
+		mntmxBoard.addActionListener(new Board6(this));
 		
 		JMenuItem mntmxBoard_1 = new JMenuItem("8x8 Board");
 		mnNewGame.add(mntmxBoard_1);
-		mntmxBoard_1.addActionListener(new Board8());
+		mntmxBoard_1.addActionListener(new Board8(this));
 		
 		JMenuItem mntmxBoard_2 = new JMenuItem("10x10 Board");
 		mnNewGame.add(mntmxBoard_2);
-		mntmxBoard_2.addActionListener(new Board10());
+		mntmxBoard_2.addActionListener(new Board10(this));
 		
 		JMenu mnAiDifficulty = new JMenu("AI Difficulty");
 		menuBar.add(mnAiDifficulty);
 		
 		JMenuItem mntmEasy = new JMenuItem("Easy");
+		
 		mnAiDifficulty.add(mntmEasy);
-		mntmEasy.addActionListener(new EasyAI());
+		mntmEasy.addActionListener(new EasyAI(this));
 		
 		JMenuItem mntmMedium = new JMenuItem("Medium");
 		mnAiDifficulty.add(mntmMedium);
-		mntmMedium.addActionListener(new MediumAI());
+		mntmMedium.addActionListener(new MediumAI(this));
 		
 		JMenuItem mntmHard = new JMenuItem("Hard");
 		mnAiDifficulty.add(mntmHard);
-		mntmHard.addActionListener(new HardAI());
+		mntmHard.addActionListener(new HardAI(this));
 		
 		contentPane = new JPanel();
 		contentPane.setToolTipText("");
@@ -86,54 +89,87 @@ public class GuiMain extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-
 	}
+	
+	
+	public void startGame(int size) {
+		
+		try {
+			logic = new BoardLogic(size);
+			board = new PaintBoard(logic);
+			board.setSize(contentPane.getSize().width, contentPane.getSize().width);
+			contentPane.add(board);
+			contentPane.addMouseListener(new MouseListener(logic));
+			board.repaint();
+		} catch (Exception e) {
+			System.out.println("Hier könnte man ein schönes Bildchen für die Fehlermeldung anzeigen");
+		}
+		
+	}
+	
 	class Board6 implements ActionListener{
+		GuiMain main;
+	
+		public Board6(GuiMain main) {
+			this.main = main;
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e){
-			try {
-				new BoardLogic(6);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+			main.startGame(6);
 		}
 	}
-	class Board8 implements ActionListener{
+	class Board8 extends Board6{
+		public Board8(GuiMain main) {
+			super(main);
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e){
-			try {
-				new BoardLogic(8);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+			super.main.startGame(8);
 		}
 	}
-	class Board10 implements ActionListener{
+	class Board10 extends Board6{
+		public Board10(GuiMain main) {
+			super(main);
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e){
-			try {
-				new BoardLogic(10);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+			super.main.startGame(10);
 		}
 	}
+	
 	class EasyAI implements ActionListener{
+		private GuiMain main;
+		
+		public EasyAI(GuiMain main) {
+			this.main = main;
+		}
 		@Override
 		public void actionPerformed(ActionEvent e){
-			Difficulty difficulty = Difficulty.Easy;
+			main.difficulty = Difficulty.Easy;
 		}
 	}
-	class MediumAI implements ActionListener{
+	
+	class MediumAI extends EasyAI {
+		public MediumAI(GuiMain main) {
+			super(main);
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e){
-			Difficulty difficulty = Difficulty.Medium;
+			super.main.difficulty = Difficulty.Medium;
 		}
 	}
-	class HardAI implements ActionListener{
+	class HardAI extends EasyAI {
+		public HardAI(GuiMain main) {
+			super(main);
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e){
-			Difficulty difficulty = Difficulty.Hard;
+			super.main.difficulty = Difficulty.Hard;
 		}
 	}
 }
