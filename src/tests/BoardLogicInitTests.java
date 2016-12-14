@@ -39,7 +39,7 @@ public class BoardLogicInitTests {
 	@Test
 	public void test_initWithSizeToHigh() {
 		try {
-			BoardLogic logic = new BoardLogic(10);
+			BoardLogic logic = new BoardLogic(11);
 			fail("Init the board with a number > 8 should throw an exception");
 			
 		} catch (Exception e) {
@@ -50,7 +50,7 @@ public class BoardLogicInitTests {
 	@Test
 	public void test_initWithSizeToSmall() {
 		try {
-			BoardLogic logic = new BoardLogic(4);
+			BoardLogic logic = new BoardLogic(5);
 			fail("Init the board with a number < 6 should throw an exception");
 			
 		} catch (Exception e) {
