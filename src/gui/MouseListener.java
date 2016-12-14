@@ -7,13 +7,10 @@ import logic.*;
 
 public class MouseListener extends MouseAdapter {
 
-	GuiMain main;
-	private FieldType[][] board;
-	private FieldType player = FieldType.Empty;
-	private FieldPosition position;
-
-	public MouseListener(BoardLogic logic) {
-		board = logic.getBoardState();
+	private GuiMain main;
+	
+	public MouseListener(GuiMain main) {
+		this.main = main;
 	}
 
 	@Override
@@ -24,7 +21,7 @@ public class MouseListener extends MouseAdapter {
 
 		if (x >= 50) {
 
-			int pos1 = x / 60;
+			int pos1 = (int) Math.floor((double)(x / 60));
 
 			switch (pos1) {
 			case 0:
@@ -63,7 +60,7 @@ public class MouseListener extends MouseAdapter {
 			}
 		}
 		if (y >= 50) {
-			int pos2 = y / 60;
+			int pos2 = (int) Math.floor((double) (y / 60));
 
 			switch (pos2) {
 			case 0:
@@ -103,23 +100,9 @@ public class MouseListener extends MouseAdapter {
 		}
 		try {
 
-			if (rowNum >= 0 && columNum >= 0 && board[rowNum][columNum] == FieldType.Empty) {
-				if (player == FieldType.Empty) {
-					player = FieldType.Player1;
-					position = new FieldPosition(rowNum, columNum);
-					boolean move;
-					makeMove(player, position);
-					player = FieldType.Player2;
-				} else if (player == FieldType.Player1) {
-					position = new FieldPosition(rowNum, columNum);
-					makeMove(player, position);
-					player = FieldType.Player2;
-
-				} else if (player == FieldType.Player2) {
-					position = new FieldPosition(rowNum, columNum);
-					makeMove(player, position);
-					player = FieldType.Player1;
-				}
+			if (rowNum >= 0 && columNum >= 0) {
+				FieldPosition position = new FieldPosition((rowNum-1), (columNum-1));
+				main.turn(position);
 			}
 		} catch (Exception d) {
 			System.out.println("viele bunte fehler");
