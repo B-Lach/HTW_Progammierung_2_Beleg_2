@@ -554,10 +554,12 @@ public class BoardLogic implements Cloneable {
 	 * @return Returns true if position is valid otherwise false
 	 */
 	private Boolean diagonalMovePossible(FieldType player, int x, int y) {
-		Boolean backward = diagonalBackwardMoveUpPossible(player, x, y);
+		Boolean backwardUp = diagonalBackwardMoveUpPossible(player, x, y);
+		Boolean backwardDown = diagonalBackwardMoveDownPossible(player, x, y);
+		
 		Boolean forward = diagonalForwardMovePossible(player, x, y);
 		
-		return backward || forward;
+		return backwardUp || backwardDown || forward;
 	}
 	
 	/**
@@ -613,8 +615,8 @@ public class BoardLogic implements Cloneable {
 		System.out.println("x: " + x + " y: " + y);
 		// if the given position is not empty return false
 		if (boardState[y][x] != FieldType.Empty) { return false; }
-		// if the given position y value == 0 or x value == 0 return false
-		if (y == 0 || x == 0) { return false; }
+		// if the given position y value == size-1 or x value == 0 return false
+		if (y == size-1 || x == 0) { return false; }
 		// if the given position -1 == player or is empty return false 
 		if (boardState[y+1][x-1] == player || boardState[y+1][x-1] == FieldType.Empty) { return false; }
 
