@@ -287,17 +287,39 @@ public class BoardLogicTests {
 	}
 
 	@Test
-	public void test_diagonalBackwardMove() {
+	public void test_diagonalBackwardMoveUp() {
 		BoardLogic logic = new BoardLogic();
 		FieldPosition p = new FieldPosition(3, 4);
-		
-		logic.makeMove(FieldType.Player2, p);
-		p = new FieldPosition(4, 4);
-		logic.makeMove(FieldType.Player1, p);
 		
 		FieldType[][] expected = getDefaultState();
 		expected[4][3] = FieldType.Player2;
 		expected[4][4] = FieldType.Player1;
+		
+		logic.makeMove(FieldType.Player2, p);
+		
+		p = new FieldPosition(4, 4);
+		logic.makeMove(FieldType.Player1, p);
+
+		FieldType[][] result = logic.getBoardState();
+
+		for (int i = 0; i < logic.getBoardSize(); i++) {
+			for (int j = 0; j < logic.getBoardSize(); j++ ) {
+				assertEquals("Current state xy value and expected state xy value are not the same", result[i][j], expected[i][j]);
+			}
+		}
+	}
+	
+	@Test
+	public void test_diagonalBackwardMoveDown() {
+		FieldType[][] state = getDefaultState();
+		state[2][3] = FieldType.Player1;
+		
+		FieldType[][] expected = getDefaultState();
+		expected[1][4] = FieldType.Player2;
+		
+		LogicMock logic = new LogicMock();
+		logic.useStateForTest(state);
+		logic.makeMove(FieldType.Player2, new FieldPosition(4,1));
 		
 		FieldType[][] result = logic.getBoardState();
 
@@ -309,7 +331,7 @@ public class BoardLogicTests {
 	}
 	
 	@Test
-	public void test_diagonalForwardMove() {
+	public void test_diagonalForwardMoveDown() {
 		BoardLogic logic = new BoardLogic();
 		FieldPosition p = new FieldPosition(2, 1);
 		
@@ -320,6 +342,29 @@ public class BoardLogicTests {
 		FieldType[][] expected = getDefaultState();
 		expected[1][1] = FieldType.Player1;
 		expected[1][2] = FieldType.Player2;
+		
+		FieldType[][] result = logic.getBoardState();
+		
+		for (int i = 0; i < logic.getBoardSize(); i++) {
+			for (int j = 0; j < logic.getBoardSize(); j++ ) {
+				assertEquals("Current state xy value and expected state xy value are not the same", result[i][j], expected[i][j]);
+			}
+		}
+	}
+	
+	@Test
+	public void test_diagonalForwardMoveUp() {
+		FieldType[][] state = getDefaultState();
+		state[3][2] = FieldType.Player1;
+		
+		LogicMock logic = new LogicMock();
+		logic.useStateForTest(state);
+		
+		logic.makeMove(FieldType.Player2, new FieldPosition(1,4));
+
+		FieldType[][] expected = getDefaultState();
+		expected[4][1] = FieldType.Player2;
+		
 		
 		FieldType[][] result = logic.getBoardState();
 		
