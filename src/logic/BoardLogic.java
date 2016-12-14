@@ -639,7 +639,6 @@ public class BoardLogic implements Cloneable {
 	 * @return Returns true if position is valid otherwise false
 	 */
 	private Boolean diagonalBackwardMoveDownPossible(FieldType player, int x, int y) {
-		System.out.println("x: " + x + " y: " + y);
 		// if the given position is not empty return false
 		if (boardState[y][x] != FieldType.Empty) { return false; }
 		// if the given position y value == size-1 or x value == 0 return false
@@ -665,7 +664,6 @@ public class BoardLogic implements Cloneable {
 		} else {
 			currentX -= 2;
 			for (int i = currentY+2; i < size; i++) {
-				System.out.println("In loop - x: " + currentX + " y: " + i);
 				if (boardState[i][currentX] == player) { playerCount++; }
 				if (boardState[i][currentX] == FieldType.Empty) { emptyCount++; }
 				if (emptyCount > 0) { i = size; }
@@ -750,7 +748,6 @@ public class BoardLogic implements Cloneable {
 		} else {
 			currentX += 2;
 			for (int i = currentY-2; i >= 0; i--) {
-				System.out.println("x: " + currentX + " y: " + i);
 				if (boardState[i][currentX] == player) { playerCount++; }
 				if (boardState[i][currentX] == FieldType.Empty) { emptyCount++; }
 				if (emptyCount > 0) { i = -1; }
