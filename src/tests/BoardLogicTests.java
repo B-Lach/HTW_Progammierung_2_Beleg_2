@@ -331,6 +331,39 @@ public class BoardLogicTests {
 	}
 	
 	@Test
+	public void test_multipleMoves() {	
+		FieldType[][] state = getDefaultState();
+		state[2][2] = FieldType.Player1;
+		state[2][3] = FieldType.Player1;
+		state[2][4] = FieldType.Player1;
+		state[3][2] = FieldType.Player2;
+		state[3][3] = FieldType.Player2;
+		state[3][4] = FieldType.Player2;
+		
+		LogicMock logic = new LogicMock();
+		logic.useStateForTest(state);
+		
+		FieldType[][] expected = getDefaultState();
+		expected[1][2] = FieldType.Player2;
+		expected[2][2] = FieldType.Player2;
+		expected[2][3] = FieldType.Player2;
+		expected[2][4] = FieldType.Player1;
+		expected[3][2] = FieldType.Player2;
+		expected[3][3] = FieldType.Player2;
+		expected[3][4] = FieldType.Player2;
+		
+		logic.makeMove(FieldType.Player2, new FieldPosition(2,1));
+		
+		FieldType[][] result = logic.getBoardState();
+		
+		for(int i = 0; i < logic.getBoardSize(); i++) {
+			for(int j = 0; j < logic.getBoardSize(); j++) {
+				assertTrue("Result is not as aspected", result[i][j] == expected[i][j]);
+			}
+		}
+	}
+	
+	@Test
 	public void test_stateImmutabillity() {
 		BoardLogic logic = new BoardLogic();
 		FieldType[][] state = logic.getBoardState();
