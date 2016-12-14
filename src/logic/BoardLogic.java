@@ -246,6 +246,9 @@ public class BoardLogic implements Cloneable {
 		int x = p.getX();
 		int y = p.getY();
 		
+		boardState[y][x] = player;
+		x--;
+		
 		while (enemy != player) {
 			enemy = boardState[y][x];
 			boardState[y][x] = player;
@@ -262,6 +265,9 @@ public class BoardLogic implements Cloneable {
 		FieldType enemy = getEnemy(player);
 		int x = p.getX();
 		int y = p.getY();
+		
+		boardState[y][x] = player;
+		x++;
 		
 		while (enemy != player) {
 			enemy = boardState[y][x];
@@ -280,6 +286,9 @@ public class BoardLogic implements Cloneable {
 		int x = p.getX();
 		int y = p.getY();
 		
+		boardState[y][x] = player;
+		y--;
+		
 		while (enemy != player) {
 			enemy = boardState[y][x];
 			boardState[y][x] = player;
@@ -296,6 +305,9 @@ public class BoardLogic implements Cloneable {
 		FieldType enemy = getEnemy(player);
 		int x = p.getX();
 		int y = p.getY();
+		
+		boardState[y][x] = player;
+		y++;
 		
 		while (enemy != player) {
 			enemy = boardState[y][x];
@@ -314,6 +326,10 @@ public class BoardLogic implements Cloneable {
 		int x = p.getX();
 		int y = p.getY();
 		
+		boardState[y][x] = player;
+		x--;
+		y--;
+		
 		while (enemy != player) {
 			enemy = boardState[y][x];
 			boardState[y][x] = player;
@@ -331,6 +347,10 @@ public class BoardLogic implements Cloneable {
 		FieldType enemy = getEnemy(player);
 		int x = p.getX();
 		int y = p.getY();
+		
+		boardState[y][x] = player;
+		x++;
+		y++;
 		
 		while (enemy != player) {
 			enemy = boardState[y][x];
