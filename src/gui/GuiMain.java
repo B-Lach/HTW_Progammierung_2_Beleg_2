@@ -63,7 +63,7 @@ public class GuiMain extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			NewGameMenu.NewGameMenu();
+			// NewGameMenu.NewGameMenu();
 			
 		}
 	}
