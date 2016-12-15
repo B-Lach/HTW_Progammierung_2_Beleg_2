@@ -5,7 +5,6 @@ import logic.*;
 import java.awt.EventQueue;
 import java.awt.event.*;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -19,12 +18,13 @@ import javax.swing.border.LineBorder;
 import javax.swing.JCheckBoxMenuItem;
 
 public class GuiMain extends JFrame {
-	
+
 	static JPanel contentPane;
 	public Difficulty difficulty;
 	private static FieldType player = FieldType.Player1;
 	private BoardLogic logic;
 	private PaintBoard board;
+
 	/**
 	 * Launch the application.
 	 */
@@ -48,53 +48,52 @@ public class GuiMain extends JFrame {
 		setTitle("Reversi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 731, 521);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnNewGame = new JMenu("New Game");
 		menuBar.add(mnNewGame);
-		
+
 		JMenuItem mntmxBoard = new JMenuItem("6x6 Board");
 		mnNewGame.add(mntmxBoard);
 		mntmxBoard.addActionListener(new Board6(this));
-		
+
 		JMenuItem mntmxBoard_1 = new JMenuItem("8x8 Board");
 		mnNewGame.add(mntmxBoard_1);
 		mntmxBoard_1.addActionListener(new Board8(this));
-		
+
 		JMenuItem mntmxBoard_2 = new JMenuItem("10x10 Board");
 		mnNewGame.add(mntmxBoard_2);
 		mntmxBoard_2.addActionListener(new Board10(this));
-		
+
 		JMenu mnAiDifficulty = new JMenu("AI Difficulty");
 		menuBar.add(mnAiDifficulty);
-		
+
 		JMenuItem mntmEasy = new JMenuItem("Easy");
-		
+
 		mnAiDifficulty.add(mntmEasy);
 		mntmEasy.addActionListener(new EasyAI(this));
-		
+
 		JMenuItem mntmMedium = new JMenuItem("Medium");
 		mnAiDifficulty.add(mntmMedium);
 		mntmMedium.addActionListener(new MediumAI(this));
-		
+
 		JMenuItem mntmHard = new JMenuItem("Hard");
 		mnAiDifficulty.add(mntmHard);
 		mntmHard.addActionListener(new HardAI(this));
-		
+
 		contentPane = new JPanel();
 		contentPane.setToolTipText("");
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 	}
-	
-	
+
 	public void startGame(int size) {
-		
+
 		try {
 			logic = new BoardLogic(size);
 			board = new PaintBoard(logic);
@@ -105,86 +104,95 @@ public class GuiMain extends JFrame {
 		} catch (Exception e) {
 			System.out.println("Hier könnte man ein schönes Bildchen für die Fehlermeldung anzeigen");
 		}
-		
+
 	}
-	public static FieldType getPlayer(){
+
+	public static FieldType getPlayer() {
 		return player;
 	}
-	public void turn(FieldPosition position){
+
+	public void turn(FieldPosition position) {
 		System.out.println("Potition: " + position);
-		if(logic.makeMove(player, position)){
-			if(player == FieldType.Player1){
+		if (logic.makeMove(player, position)) {
+			if (player == FieldType.Player1) {
 				player = FieldType.Player2;
-			}else if(player == FieldType.Player2){
+			} else if (player == FieldType.Player2) {
 				player = FieldType.Player1;
 			}
 			System.out.println("Should make a move");
 			board.repaint(logic);
 		}
 	}
-	class Board6 implements ActionListener{
+
+	class Board6 implements ActionListener {
 		GuiMain main;
-	
+
 		public Board6(GuiMain main) {
 			this.main = main;
 		}
-		
+
 		@Override
-		public void actionPerformed(ActionEvent e){
+		public void actionPerformed(ActionEvent e) {
 			main.startGame(6);
 		}
 	}
-	class Board8 extends Board6{
+
+	class Board8 extends Board6 {
 		public Board8(GuiMain main) {
 			super(main);
 		}
 
 		@Override
-		public void actionPerformed(ActionEvent e){
+		public void actionPerformed(ActionEvent e) {
 			super.main.startGame(8);
 		}
 	}
-	class Board10 extends Board6{
+
+	class Board10 extends Board6 {
 		public Board10(GuiMain main) {
 			super(main);
 		}
 
 		@Override
-		public void actionPerformed(ActionEvent e){
+		public void actionPerformed(ActionEvent e) {
 			super.main.startGame(10);
 		}
 	}
-	
-	class EasyAI implements ActionListener{
+
+	class EasyAI implements ActionListener {
 		private GuiMain main;
-		
+
 		public EasyAI(GuiMain main) {
 			this.main = main;
 		}
+
 		@Override
-		public void actionPerformed(ActionEvent e){
+		public void actionPerformed(ActionEvent e) {
 			main.difficulty = Difficulty.Easy;
 		}
 	}
-	
+
 	class MediumAI extends EasyAI {
 		public MediumAI(GuiMain main) {
 			super(main);
 		}
 
 		@Override
-		public void actionPerformed(ActionEvent e){
+		public void actionPerformed(ActionEvent e) {
 			super.main.difficulty = Difficulty.Medium;
 		}
 	}
+
 	class HardAI extends EasyAI {
 		public HardAI(GuiMain main) {
 			super(main);
 		}
 
 		@Override
-		public void actionPerformed(ActionEvent e){
+
+		public void actionPerformed(ActionEvent e) {
 			super.main.difficulty = Difficulty.Hard;
+
 		}
 	}
 }

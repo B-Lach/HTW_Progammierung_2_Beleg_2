@@ -25,11 +25,12 @@ public class BoardLogic implements Cloneable {
 	 * @throws Exception The exception will be thrown if size is odd or if the size is not between 6 and 8
 	 */
 	public BoardLogic(int size) throws Exception {
+		if (size < 6 || size > 10) {
+			throw new Exception("Size needs to be between 6 and 8");
+		}
+		
 		if (size % 2 != 0) {
 			throw new Exception("The size is odd");
-		}
-		if (size < 6 || size > 8) {
-			throw new Exception("Size needs to be between 6 and 8");
 		}
 		
 		this.size = size;
@@ -101,8 +102,10 @@ public class BoardLogic implements Cloneable {
 		Boolean hfp = horizontalForwardMovePossible(player, p.getX(), p.getY());
 		Boolean vbp = verticalBackwardMovePossible(player, p.getX(), p.getY());
 		Boolean vfp = verticalForwardMovePossible(player, p.getX(), p.getY());
-		Boolean dbp = diagonalBackwardMovePossible(player, p.getX(), p.getY());
-		Boolean dfp = diagonalForwardMovePossible(player, p.getX(), p.getY());
+		Boolean dbup = diagonalBackwardMoveUpPossible(player, p.getX(), p.getY());
+		Boolean dbdp = diagonalBackwardMoveDownPossible(player, p.getX(), p.getY());
+		Boolean dfdp = diagonalForwardMoveDownPossible(player, p.getX(), p.getY());
+		Boolean dfup = diagonalForwardMoveUpPossible(player, p.getX(), p.getY());
 		
 		// horizontal backward move possible
 		if (hbp) { makeHorizontalBackwardMove(player, p); }
@@ -112,13 +115,16 @@ public class BoardLogic implements Cloneable {
 		if (vbp) { makeVerticalBackwardMove(player, p); }
 		// vertical forward move possible
 		if (vfp) { makeVerticalForwardMove(player, p); }
-		// diagonal backward move possible
-		if (dbp) { makeDiagonalBackwardMove(player, p); }
-		// diagonal forward move possible
-		if (dfp) { makeDiagonalForwardMove(player, p); }
+		// diagonal backward up move possible
+		if (dbup) { makeDiagonalBackwardUpMove(player, p); }
+		// diagonal backward down move possible
+		if (dbdp) { makeDiagonalBackwardDownMove(player, p); }
+		// diagonal forward move down possible
+		if (dfdp) { makeDiagonalForwardDownMove(player, p); }
+		// diagonal forward move up possible
+		if (dfup) { makeDiagonalForwardUpMove(player, p); }
 		
-		
-		return hbp || hfp || vbp || vfp || dbp || dfp; 
+		return hbp || hfp || vbp || vfp || dbup || dbdp || dfdp || dfup; 
 	}
 	
 	/**
@@ -246,6 +252,9 @@ public class BoardLogic implements Cloneable {
 		int x = p.getX();
 		int y = p.getY();
 		
+		boardState[y][x] = player;
+		x--;
+		
 		while (enemy != player) {
 			enemy = boardState[y][x];
 			boardState[y][x] = player;
@@ -262,6 +271,9 @@ public class BoardLogic implements Cloneable {
 		FieldType enemy = getEnemy(player);
 		int x = p.getX();
 		int y = p.getY();
+		
+		boardState[y][x] = player;
+		x++;
 		
 		while (enemy != player) {
 			enemy = boardState[y][x];
@@ -280,6 +292,9 @@ public class BoardLogic implements Cloneable {
 		int x = p.getX();
 		int y = p.getY();
 		
+		boardState[y][x] = player;
+		y--;
+		
 		while (enemy != player) {
 			enemy = boardState[y][x];
 			boardState[y][x] = player;
@@ -297,6 +312,9 @@ public class BoardLogic implements Cloneable {
 		int x = p.getX();
 		int y = p.getY();
 		
+		boardState[y][x] = player;
+		y++;
+		
 		while (enemy != player) {
 			enemy = boardState[y][x];
 			boardState[y][x] = player;
@@ -305,14 +323,18 @@ public class BoardLogic implements Cloneable {
 	}
 	
 	/**
-	 * Method to make a diagonal backward move
+	 * Method to make a diagonal backward up move
 	 * @param player The player who wants to perform the move
 	 * @param p The start position of the move
 	 */
-	private void makeDiagonalBackwardMove(FieldType player, FieldPosition p) {
+	private void makeDiagonalBackwardUpMove(FieldType player, FieldPosition p) {
 		FieldType enemy = getEnemy(player);
 		int x = p.getX();
 		int y = p.getY();
+		
+		boardState[y][x] = player;
+		x--;
+		y--;
 		
 		while (enemy != player) {
 			enemy = boardState[y][x];
@@ -323,20 +345,68 @@ public class BoardLogic implements Cloneable {
 	}
 	
 	/**
-	 * Method to make a diagonal forward move
+	 * Method to make a diagonal backward down move
 	 * @param player The player who wants to perform the move
 	 * @param p The start position of the move
 	 */
-	private void makeDiagonalForwardMove(FieldType player, FieldPosition p) {
+	private void makeDiagonalBackwardDownMove(FieldType player, FieldPosition p) {
 		FieldType enemy = getEnemy(player);
 		int x = p.getX();
 		int y = p.getY();
+		
+		boardState[y][x] = player;
+		x--;
+		y++;
+		
+		while (enemy != player) {
+			enemy = boardState[y][x];
+			boardState[y][x] = player;
+			x--;
+			y++;
+		}
+	}
+	
+	/**
+	 * Method to make a diagonal forward down move
+	 * @param player The player who wants to perform the move
+	 * @param p The start position of the move
+	 */
+	private void makeDiagonalForwardDownMove(FieldType player, FieldPosition p) {
+		FieldType enemy = getEnemy(player);
+		int x = p.getX();
+		int y = p.getY();
+		
+		boardState[y][x] = player;
+		x++;
+		y++;
 		
 		while (enemy != player) {
 			enemy = boardState[y][x];
 			boardState[y][x] = player;
 			x++;
 			y++;
+		}
+	}
+	
+	/**
+	 * Method to make a diagonal forward down move
+	 * @param player The player who wants to perform the move
+	 * @param p The start position of the move
+	 */
+	private void makeDiagonalForwardUpMove(FieldType player, FieldPosition p) {
+		FieldType enemy = getEnemy(player);
+		int x = p.getX();
+		int y = p.getY();
+		
+		boardState[y][x] = player;
+		x++;
+		y--;
+		
+		while (enemy != player) {
+			enemy = boardState[y][x];
+			boardState[y][x] = player;
+			x++;
+			y--;
 		}
 	}
 	
@@ -509,20 +579,24 @@ public class BoardLogic implements Cloneable {
 	 * @return Returns true if position is valid otherwise false
 	 */
 	private Boolean diagonalMovePossible(FieldType player, int x, int y) {
-		Boolean backward = diagonalBackwardMovePossible(player, x, y);
-		Boolean forward = diagonalForwardMovePossible(player, x, y);
+		// check if diagonal backward moves are possible
+		Boolean backwardUp = diagonalBackwardMoveUpPossible(player, x, y);
+		Boolean backwardDown = diagonalBackwardMoveDownPossible(player, x, y);
+		// check if diagonal forward moves are possible
+		Boolean forwardDown = diagonalForwardMoveDownPossible(player, x, y);
+		Boolean forwardUp = diagonalForwardMoveUpPossible(player, x, y);
 		
-		return backward || forward;
+		return backwardUp || backwardDown || forwardDown || forwardUp;
 	}
 	
 	/**
-	 * Method to check if a given position is valid for a diagonal backward move made by a given player
+	 * Method to check if a given position is valid for a diagonal backward up move made by a given player
 	 * @param player The player the check is made for
 	 * @param x X-Position of the board 
 	 * @param y Y-Position of the board
 	 * @return Returns true if position is valid otherwise false
 	 */
-	private Boolean diagonalBackwardMovePossible(FieldType player, int x, int y) {
+	private Boolean diagonalBackwardMoveUpPossible(FieldType player, int x, int y) {
 		// if the given position is not empty return false
 		if (boardState[y][x] != FieldType.Empty) { return false; }
 		// if the given position y value == 0 or x value == 0 return false
@@ -558,13 +632,55 @@ public class BoardLogic implements Cloneable {
 	}
 	
 	/**
-	 * Method to check if a given position is valid for a diagonal forward move made by a given player
+	 * Method to check if a given position is valid for a diagonal backward down move made by a given player
 	 * @param player The player the check is made for
 	 * @param x X-Position of the board 
 	 * @param y Y-Position of the board
 	 * @return Returns true if position is valid otherwise false
 	 */
-	private Boolean diagonalForwardMovePossible(FieldType player, int x, int y) {
+	private Boolean diagonalBackwardMoveDownPossible(FieldType player, int x, int y) {
+		// if the given position is not empty return false
+		if (boardState[y][x] != FieldType.Empty) { return false; }
+		// if the given position y value == size-1 or x value == 0 return false
+		if (y == size-1 || x == 0) { return false; }
+		// if the given position -1 == player or is empty return false 
+		if (boardState[y+1][x-1] == player || boardState[y+1][x-1] == FieldType.Empty) { return false; }
+
+		int playerCount = 0;
+		int emptyCount = 0;
+		
+		int currentX = x;
+		int currentY = y;
+		// if the current x position is smaller iterate over x position
+		// otherwise iterate over y position
+		if (currentX < size-(currentY+1)) {
+			currentY += 2;
+			for(int i = currentX-2; i >= 0; i--) {
+				if (boardState[currentY][i] == player) { playerCount++; }
+				if (boardState[currentY][i] == FieldType.Empty) { emptyCount++; }
+				if (emptyCount > 0) { i = -1; }
+				currentY++;
+			}
+		} else {
+			currentX -= 2;
+			for (int i = currentY+2; i < size; i++) {
+				if (boardState[i][currentX] == player) { playerCount++; }
+				if (boardState[i][currentX] == FieldType.Empty) { emptyCount++; }
+				if (emptyCount > 0) { i = size; }
+				currentX--;
+			}
+		}	
+		return playerCount > 0;
+	}
+	
+	/**
+	 * Method to check if a given position is valid for a diagonal forward down move made by a given player
+	 * @param player The player the check is made for
+	 * @param x X-Position of the board 
+	 * @param y Y-Position of the board
+	 * @return Returns true if position is valid otherwise false
+	 */
+	private Boolean diagonalForwardMoveDownPossible(FieldType player, int x, int y) {
 		// if the given position is not empty return false
 		if (boardState[y][x] != FieldType.Empty) { return false; }
 		// if the given position y value == size-1 or x value == size-1 return false
@@ -593,6 +709,48 @@ public class BoardLogic implements Cloneable {
 				if (boardState[i][currentX] == player) { playerCount++; }
 				if (boardState[i][currentX] == FieldType.Empty) { emptyCount++; }
 				if (emptyCount > 0) { i = size; }
+				currentX++;
+			}
+		}
+		return playerCount > 0;
+	}
+	
+	/**
+	 * Method to check if a given position is valid for a diagonal forward up move made by a given player
+	 * @param player The player the check is made for
+	 * @param x X-Position of the board 
+	 * @param y Y-Position of the board
+	 * @return Returns true if position is valid otherwise false
+	 */
+	private Boolean diagonalForwardMoveUpPossible(FieldType player, int x, int y) {
+		// if the given position is not empty return false
+		if (boardState[y][x] != FieldType.Empty) { return false; }
+		// if the given position y value == 0 or x value == size-1 return false
+		if (y == 0 || x == size-1) { return false; }
+		// if the given position +1 == player or is empty return false 
+		if (boardState[y-1][x+1] == player || boardState[y-1][x+1] == FieldType.Empty) { return false; }
+
+		int playerCount = 0;
+		int emptyCount = 0;
+		
+		int currentX = x;
+		int currentY = y;
+		// if the current x position is bigger iterate over x position
+		// otherwise iterate over y position
+		if (size-(currentY+1) < currentX) {
+			currentY -= 2;
+			for(int i = currentX+2; i < size; i++) {
+				if (boardState[currentY][i] == player) { playerCount++; }
+				if (boardState[currentY][i] == FieldType.Empty) { emptyCount++; }
+				if (emptyCount > 0) { i = size; }
+				currentY--;
+			}
+		} else {
+			currentX += 2;
+			for (int i = currentY-2; i >= 0; i--) {
+				if (boardState[i][currentX] == player) { playerCount++; }
+				if (boardState[i][currentX] == FieldType.Empty) { emptyCount++; }
+				if (emptyCount > 0) { i = -1; }
 				currentX++;
 			}
 		}
