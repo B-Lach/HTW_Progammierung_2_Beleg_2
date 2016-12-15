@@ -19,9 +19,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.JCheckBoxMenuItem;
 
 public class GuiMain extends JFrame {
+	
 	static JPanel contentPane;
 	public Difficulty difficulty;
-	private FieldType player = FieldType.Player1;
+	private static FieldType player = FieldType.Player1;
 	private BoardLogic logic;
 	private PaintBoard board;
 	/**
@@ -105,6 +106,9 @@ public class GuiMain extends JFrame {
 			System.out.println("Hier könnte man ein schönes Bildchen für die Fehlermeldung anzeigen");
 		}
 		
+	}
+	public static FieldType getPlayer(){
+		return player;
 	}
 	public void turn(FieldPosition position){
 		System.out.println("Potition: " + position);

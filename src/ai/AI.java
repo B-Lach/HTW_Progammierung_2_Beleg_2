@@ -66,7 +66,7 @@ public class AI {
 		ArrayList<FieldPosition> moves = currentState.getPossibleMoves(player);
 		
 		if (!moves.isEmpty()) {
-			// Track the score and made move to decide which move should be performed at the end
+			// Track the score and make move to decide which move should be performed at the end
 			ArrayList<Integer> bestMoveIndices = new ArrayList<Integer>();
 			int points = 0;
 			
