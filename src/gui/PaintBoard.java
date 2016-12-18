@@ -18,15 +18,18 @@ public class PaintBoard extends JPanel {
 	private BoardLogic logic;
 	private ArrayList<FieldPosition> possibleMoves;
 	private FieldType player = FieldType.Player1;
+	private Score score1;
 
 	public PaintBoard(BoardLogic logic) {
 
 		boardSize = logic.getBoardSize();
 		board = logic.getBoardState();	
 		possibleMoves = logic.getPossibleMoves(player);
+		score1 = logic.getScore();
 	}
 
 	public void repaint(BoardLogic logic) {
+		score1 = logic.getScore();
 		board = logic.getBoardState();
 		if(player == FieldType.Player1){
 			player = FieldType.Player2;
@@ -82,6 +85,16 @@ public class PaintBoard extends JPanel {
 				g.drawOval(50 + x2 * 60, 50 + y2 * 60, 30, 30);
 			}
 		}
+		g.setColor(Color.white);
+		g.fillRect(50, 680, 200, 30);
+		g.setColor(Color.black);
+		g.setFont(new Font("Serif", Font.BOLD, 20));
+		g.drawString(player + " ist am Zug", 50, 700);
 		
+		g.setColor(Color.white);
+		g.fillRect(300, 680, 400, 30);
+		g.setColor(Color.black);
+		g.setFont(new Font("Serif", Font.BOLD, 20));
+		g.drawString(score1.toString(), 300, 700);
 	}
 }

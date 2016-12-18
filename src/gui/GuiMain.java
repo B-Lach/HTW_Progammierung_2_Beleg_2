@@ -47,7 +47,8 @@ public class GuiMain extends JFrame {
 	public GuiMain() {
 		setTitle("Reversi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 731, 521);
+		setBounds(100, 100, 731, 800);
+		setResizable(false);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
