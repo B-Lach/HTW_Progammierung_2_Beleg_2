@@ -103,7 +103,7 @@ public class GuiMain extends JFrame {
 			contentPane.addMouseListener(new MouseListener(this));
 			board.repaint();
 		} catch (Exception e) {
-			System.out.println("Hier könnte man ein schönes Bildchen für die Fehlermeldung anzeigen");
+			System.out.println("Hier koennte man ein schoenes Bildchen fuer die Fehlermeldung anzeigen");
 		}
 
 	}

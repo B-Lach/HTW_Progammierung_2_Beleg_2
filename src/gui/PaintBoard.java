@@ -8,20 +8,17 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class PaintBoard extends JPanel {
-
+	
 	private int boardSize;
 	private FieldType[][] board;
-	private BoardLogic logic;
 	private ArrayList<FieldPosition> possibleMoves;
 	private FieldType player = FieldType.Player1;
 	private Score score1;
 
 	public PaintBoard(BoardLogic logic) {
-
 		boardSize = logic.getBoardSize();
 		board = logic.getBoardState();	
 		possibleMoves = logic.getPossibleMoves(player);
@@ -31,22 +28,21 @@ public class PaintBoard extends JPanel {
 	public void repaint(BoardLogic logic) {
 		score1 = logic.getScore();
 		board = logic.getBoardState();
+		
 		if(player == FieldType.Player1){
 			player = FieldType.Player2;
-			possibleMoves = logic.getPossibleMoves(player);
-			System.out.println(possibleMoves.toString());
 		}else if(player == FieldType.Player2){
 			player = FieldType.Player1;
-			possibleMoves = logic.getPossibleMoves(player);
-			System.out.println(possibleMoves.toString());
 		}
+		possibleMoves = logic.getPossibleMoves(player);
+		
 		repaint();
 	}
 
 	public void paint(Graphics g) {
-		
-		super.paintComponents(g);
+		super.paint(g);
 		char ST;
+		
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
 				if (board[i][j] == FieldType.Empty) {
@@ -76,14 +72,13 @@ public class PaintBoard extends JPanel {
 			FieldPosition position;
 			System.out.println(player);
 			position = possibleMoves.get(k);
+			
 			int x2 = position.getX();
 			int y2 = position.getY();
-			if (board[x2][y2] == FieldType.Empty) {
-				g.setColor(Color.red);
-				g.fillOval(50 + x2 * 60, 50 + y2 * 60, 30, 30);
-
-				g.drawOval(50 + x2 * 60, 50 + y2 * 60, 30, 30);
-			}
+			
+			g.setColor(Color.red);
+			g.fillOval(65 + x2 * 60, 65 + y2 * 60, 30, 30);
+			g.drawOval(65 + x2 * 60, 65 + y2 * 60, 30, 30);
 		}
 		g.setColor(Color.white);
 		g.fillRect(50, 680, 200, 30);
