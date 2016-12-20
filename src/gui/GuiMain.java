@@ -7,15 +7,12 @@ import java.awt.event.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
+
 import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
-import javax.swing.JCheckBoxMenuItem;
 
 public class GuiMain extends JFrame {
 
