@@ -18,7 +18,7 @@ public class GuiMain extends JFrame {
 
 	static JPanel contentPane;
 	public Difficulty difficulty;
-	private FieldType player = FieldType.Player1;
+	private static FieldType player = FieldType.Player1;
 	private BoardLogic logic;
 	private PaintBoard board;
 
@@ -37,7 +37,14 @@ public class GuiMain extends JFrame {
 			}
 		});
 	}
-
+	
+	public static FieldType getPlayer(){
+		return player;
+	}
+	
+	public static void setPlayer(FieldType play){
+		player = play;
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -108,12 +115,7 @@ public class GuiMain extends JFrame {
 	public void turn(FieldPosition position) {
 		System.out.println("Potition: " + position);
 		if (logic.makeMove(player, position)) {
-			if (player == FieldType.Player1) {
-				player = FieldType.Player2;
-			} else if (player == FieldType.Player2) {
-				player = FieldType.Player1;
-			}
-			System.out.println("Should make a move");
+			
 			board.repaint(logic);
 		}
 	}

@@ -15,27 +15,42 @@ public class PaintBoard extends JPanel {
 	private int boardSize;
 	private FieldType[][] board;
 	private ArrayList<FieldPosition> possibleMoves;
-	private FieldType player = FieldType.Player1;
 	private Score score1;
+	private int victory = 0;
 
 	public PaintBoard(BoardLogic logic) {
 		boardSize = logic.getBoardSize();
 		board = logic.getBoardState();
-		possibleMoves = logic.getPossibleMoves(player);
+		possibleMoves = logic.getPossibleMoves(GuiMain.getPlayer());
 		score1 = logic.getScore();
 	}
 
 	public void repaint(BoardLogic logic) {
 		score1 = logic.getScore();
 		board = logic.getBoardState();
-
-		if (player == FieldType.Player1) {
-			player = FieldType.Player2;
-		} else if (player == FieldType.Player2) {
-			player = FieldType.Player1;
+		System.out.println(GuiMain.getPlayer());
+		if (GuiMain.getPlayer() == FieldType.Player1) {
+			GuiMain.setPlayer(FieldType.Player2);
+		} else if (GuiMain.getPlayer() == FieldType.Player2) {
+			GuiMain.setPlayer(FieldType.Player1);
 		}
-		possibleMoves = logic.getPossibleMoves(player);
-
+		possibleMoves = logic.getPossibleMoves(GuiMain.getPlayer());
+		if(possibleMoves.isEmpty()){
+			if (GuiMain.getPlayer() == FieldType.Player1) {
+				GuiMain.setPlayer(FieldType.Player2);
+				possibleMoves = logic.getPossibleMoves(GuiMain.getPlayer());
+				if(possibleMoves.isEmpty()){
+					victory = 1;
+				}
+			} else if (GuiMain.getPlayer() == FieldType.Player2) {
+				GuiMain.setPlayer(FieldType.Player1);
+				possibleMoves = logic.getPossibleMoves(GuiMain.getPlayer());
+				if(possibleMoves.isEmpty()){
+					victory = 1;
+					
+				}
+			}
+		}
 		repaint();
 	}
 
@@ -72,10 +87,7 @@ public class PaintBoard extends JPanel {
 
 		}
 		for (int k = 0; k < possibleMoves.size(); k++) {
-			System.out.println(possibleMoves.size());
-			System.out.println(possibleMoves.toString());
 			FieldPosition position;
-			System.out.println(player);
 			position = possibleMoves.get(k);
 
 			int x2 = position.getX();
@@ -89,12 +101,17 @@ public class PaintBoard extends JPanel {
 		g.fillRect(50, 680, 200, 30);
 		g.setColor(Color.black);
 		g.setFont(new Font("Serif", Font.BOLD, 20));
-		g.drawString(player + " ist am Zug", 50, 700);
+		g.drawString(GuiMain.getPlayer() + "'s turn", 50, 700);
 
 		g.setColor(Color.white);
 		g.fillRect(300, 680, 400, 30);
 		g.setColor(Color.black);
 		g.setFont(new Font("Serif", Font.BOLD, 20));
 		g.drawString(score1.toString(), 300, 700);
+		if(victory == 1){
+			g.setColor(Color.red);
+			g.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
+			g.drawString("GAME OVER" , 200, 40 );
+		}
 	}
 }
