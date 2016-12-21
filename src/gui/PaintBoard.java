@@ -59,25 +59,20 @@ public class PaintBoard extends JPanel {
 
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				if (board[i][j] == FieldType.Empty) {
-					g.setColor(Color.green);
-
-				} else if (board[i][j] == FieldType.Player1) {
-					g.setColor(Color.green);
-
-				} else {
-					g.setColor(Color.green);
-
-				}
-
+				// Background
+				g.setColor(new Color(98, 185, 127));
 				g.fillRect(50 + j * 60, 50 + i * 60, 60, 60);
+				// Border
 				g.setColor(Color.black);
 				g.drawRect(50 + j * 60, 50 + i * 60, 60, 60);
+				
 				if (board[i][j] == FieldType.Player1) {
+					// Player 1 Chip
 					g.setColor(Color.WHITE);
 					g.fillOval(57 + j * 60, 57 + i * 60, 45, 45);
 					g.drawOval(57 + j * 60, 57 + i * 60, 45, 45);
 				} else if (board[i][j] == FieldType.Player2) {
+					// Player 2 Chip
 					g.setColor(Color.BLACK);
 					g.fillOval(57 + j * 60, 57 + i * 60, 45, 45);
 					g.drawOval(57 + j * 60, 57 + i * 60, 45, 45);
