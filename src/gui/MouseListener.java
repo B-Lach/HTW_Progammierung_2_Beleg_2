@@ -5,14 +5,29 @@ import java.awt.event.MouseEvent;
 
 import logic.*;
 
+/**
+ * class for mouse listener
+ * 
+ * @author Rico Stucke
+ *
+ */
 public class MouseListener extends MouseAdapter {
 
 	private GuiMain main;
 
+	/**
+	 * constructor for mouse listener
+	 * 
+	 * @param main
+	 *            current state of the JFrame
+	 */
 	public MouseListener(GuiMain main) {
 		this.main = main;
 	}
 
+	/**
+	 * MouseEvent handler
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		int x;
@@ -23,10 +38,10 @@ public class MouseListener extends MouseAdapter {
 		x = e.getX();
 		y = e.getY();
 
+		// check for x-coordinate of the mouse and correlation to the game board
 		if (x >= 50) {
 
 			int pos1 = x;
-			System.out.println(pos1);
 
 			if (pos1 >= 50 && pos1 <= 110)
 				rowNum = 0;
@@ -58,12 +73,13 @@ public class MouseListener extends MouseAdapter {
 				rowNum = 9;
 
 		}
+		// check for y-coordinate and correlation to the game board
 		if (y >= 50) {
 			int pos2 = y;
-			System.out.println(pos2);
+
 			if (pos2 >= 50 && pos2 <= 110)
 				columNum = 0;
-			
+
 			if (pos2 >= 111 && pos2 <= 170)
 				columNum = 1;
 
@@ -91,6 +107,7 @@ public class MouseListener extends MouseAdapter {
 			if (pos2 >= 592 && pos2 <= 650)
 				columNum = 9;
 		}
+		// returns game board position and checks for out of bounds
 		try {
 
 			if (rowNum >= 0 && columNum >= 0) {
@@ -98,7 +115,7 @@ public class MouseListener extends MouseAdapter {
 				main.turn(position);
 			}
 		} catch (Exception d) {
-			System.out.println("viele bunte fehler");
+			System.out.println("out of bounds");
 		}
 	}
 }

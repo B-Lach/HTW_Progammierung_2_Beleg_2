@@ -14,6 +14,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.border.LineBorder;
 
+/**
+ * main class for the graphical user interface
+ * 
+ * @author Rico Stucke
+ *
+ */
 public class GuiMain extends JFrame {
 
 	static JPanel contentPane;
@@ -37,14 +43,26 @@ public class GuiMain extends JFrame {
 			}
 		});
 	}
-	
-	public static FieldType getPlayer(){
+
+	/**
+	 * getter method for player
+	 * 
+	 * @return returns current player
+	 */
+	public static FieldType getPlayer() {
 		return player;
 	}
-	
-	public static void setPlayer(FieldType play){
+
+	/**
+	 * setter method for player
+	 * 
+	 * @param play
+	 *            new value for player
+	 */
+	public static void setPlayer(FieldType play) {
 		player = play;
 	}
+
 	/**
 	 * Create the frame.
 	 */
@@ -97,6 +115,12 @@ public class GuiMain extends JFrame {
 
 	}
 
+	/**
+	 * method to initialize the game board in the JFrame
+	 * 
+	 * @param size
+	 *            chosen size of the game board
+	 */
 	public void startGame(int size) {
 
 		try {
@@ -112,14 +136,26 @@ public class GuiMain extends JFrame {
 
 	}
 
+	/**
+	 * method for making a turn for the current player
+	 * 
+	 * @param position
+	 *            field position the player chose for his turn
+	 */
 	public void turn(FieldPosition position) {
-		System.out.println("Potition: " + position);
+
 		if (logic.makeMove(player, position)) {
-			
+
 			board.repaint(logic);
 		}
 	}
 
+	/**
+	 * ActionListener for game board size 6x6
+	 * 
+	 * @author Rico Stucke
+	 *
+	 */
 	class Board6 implements ActionListener {
 		GuiMain main;
 
@@ -133,6 +169,12 @@ public class GuiMain extends JFrame {
 		}
 	}
 
+	/**
+	 * ActionListener for game board size 8x8
+	 * 
+	 * @author Rico Stucke
+	 *
+	 */
 	class Board8 extends Board6 {
 		public Board8(GuiMain main) {
 			super(main);
@@ -144,6 +186,12 @@ public class GuiMain extends JFrame {
 		}
 	}
 
+	/**
+	 * ActionListener for game board size 10x10
+	 * 
+	 * @author Rico Stucke
+	 *
+	 */
 	class Board10 extends Board6 {
 		public Board10(GuiMain main) {
 			super(main);
@@ -155,6 +203,12 @@ public class GuiMain extends JFrame {
 		}
 	}
 
+	/**
+	 * ActionListener for easy AI button
+	 * 
+	 * @author Rico Stucke
+	 *
+	 */
 	class EasyAI implements ActionListener {
 		private GuiMain main;
 
@@ -168,6 +222,12 @@ public class GuiMain extends JFrame {
 		}
 	}
 
+	/**
+	 * ActionListener for medium AI button
+	 * 
+	 * @author Rico Stucke
+	 *
+	 */
 	class MediumAI extends EasyAI {
 		public MediumAI(GuiMain main) {
 			super(main);
@@ -179,6 +239,12 @@ public class GuiMain extends JFrame {
 		}
 	}
 
+	/**
+	 * ActionListener for hard AI button
+	 * 
+	 * @author Rico Stucke
+	 *
+	 */
 	class HardAI extends EasyAI {
 		public HardAI(GuiMain main) {
 			super(main);
