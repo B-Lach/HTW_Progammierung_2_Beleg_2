@@ -141,7 +141,6 @@ public class GuiMain extends JFrame {
 	 * 
 	 * @param position
 	 *            field position the player chose for his turn
-	 * @throws InterruptedException 
 	 */
 	public void turn(FieldPosition position){
 		
@@ -153,7 +152,6 @@ public class GuiMain extends JFrame {
 	}
 	/**
 	 * Method for turns by the AI
-	 * @throws InterruptedException 
 	 */
 	public void turnAI(){
 		if((difficulty == difficulty.Easy || difficulty == difficulty.Medium || difficulty == difficulty.Hard) && player == FieldType.Player2){
