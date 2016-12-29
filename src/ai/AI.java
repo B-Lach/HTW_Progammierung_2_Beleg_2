@@ -121,8 +121,8 @@ public class AI {
 			// Save all possible moves in a list
 			ArrayList<Integer> bestMoveIndices = new ArrayList<Integer>();
 			// Track the score and made move to decide which move should be performed at the end
-			int points = player == FieldType.Player1 ? currentState.getScore().p1() : currentState.getScore().p2();
-			int enemyPoints = player == FieldType.Player1 ? currentState.getScore().p2() : currentState.getScore().p1();
+			int points = 0; // player == FieldType.Player1 ? currentState.getScore().p1() : currentState.getScore().p2();
+			int enemyPoints = 0; // player == FieldType.Player1 ? currentState.getScore().p2() : currentState.getScore().p1();
 			FieldType enemy = player == FieldType.Player1 ? FieldType.Player2 : FieldType.Player1; 
 			
 			for (int i = 0; i < moves.size(); i++) {
