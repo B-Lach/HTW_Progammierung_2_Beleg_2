@@ -94,8 +94,10 @@ public class BoardLogic implements Cloneable {
 	 * @return Boolean to reference if the move was made 
 	 */
 	public Boolean makeMove(FieldType player, FieldPosition p) {
+		// null is not valid
+		if (player == null || p == null) { System.out.println("Why does one commit null as an argument?!"); return false; }
 		// Empty is not a valid player
-		if (player == FieldType.Empty) { System.out.println("Empty is not a valid player"); return false;}
+		if (player == FieldType.Empty) { System.out.println("Empty is not a valid player"); return false; }
 		
 		// We have to check first which moves are possible from the given position 
 		Boolean hbp = horizontalBackwardMovePossible(player, p.getX(), p.getY());

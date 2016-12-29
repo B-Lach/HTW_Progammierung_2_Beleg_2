@@ -121,6 +121,7 @@ public class AI {
 			// Save all possible moves in a list
 			ArrayList<Integer> bestMoveIndices = new ArrayList<Integer>();
 			// Track the score and made move to decide which move should be performed at the end
+			// Force the AI to select at least one of the possible moves. It wouldn't do so if we use the excluded code instead of 0
 			int points = 0; // player == FieldType.Player1 ? currentState.getScore().p1() : currentState.getScore().p2();
 			int enemyPoints = 0; // player == FieldType.Player1 ? currentState.getScore().p2() : currentState.getScore().p1();
 			FieldType enemy = player == FieldType.Player1 ? FieldType.Player2 : FieldType.Player1; 
