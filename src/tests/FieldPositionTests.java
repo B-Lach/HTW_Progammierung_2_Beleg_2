@@ -4,7 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import logic.FieldPosition;
-
+/**
+ * Test class for the FieldPosition implementation
+ * 
+ * @author Benny Lach
+ *
+ */
 public class FieldPositionTests {
 
 

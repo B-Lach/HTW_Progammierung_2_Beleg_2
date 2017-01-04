@@ -5,7 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import logic.Score;
 
-
+/**
+ * Test class for the Score implementation
+ * 
+ * @author Benny Lach
+ *
+ */
 public class ScoreTests {
 
 	@Test

@@ -2,6 +2,7 @@ package logic;
 
 /**
  * Class that represents a specific position on the board identified by it's x and y values
+ * 
  * @author Benny Lach
  *
  */

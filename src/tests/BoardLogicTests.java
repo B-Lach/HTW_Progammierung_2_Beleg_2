@@ -7,7 +7,12 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import logic.*;
-
+/**
+ * Test class for the BoardLogic implementation
+ * 
+ * @author Benny Lach
+ *
+ */
 public class BoardLogicTests {
 
 	@Test
@@ -69,11 +74,26 @@ public class BoardLogicTests {
 	}
 	
 	@Test
-	public void test_invalidMove() {
+	public void test_invalidMoveWrongPosition() {
 		BoardLogic logic = new BoardLogic();
 		FieldPosition p = new FieldPosition(0,0);
 		
 		assertFalse("Move should be invalid but result is true",logic.makeMove(FieldType.Player1, p));
+	}
+	
+	@Test
+	public void test_invalidMovePlayerNull() {
+		BoardLogic logic = new BoardLogic();
+		FieldPosition p = new FieldPosition(1,3);
+		
+		assertFalse("Move should be invalid but result is true",logic.makeMove(null, p));
+	}
+	
+	@Test
+	public void test_invalidMovePositionNull() {
+		BoardLogic logic = new BoardLogic();
+		
+		assertFalse("Move should be invalid but result is true",logic.makeMove(FieldType.Player1, null));
 	}
 	
 	@Test
