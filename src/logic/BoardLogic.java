@@ -391,7 +391,7 @@ public class BoardLogic implements Cloneable {
 	}
 	
 	/**
-	 * Method to make a diagonal forward down move
+	 * Method to make a diagonal forward up move
 	 * @param player The player who wants to perform the move
 	 * @param p The start position of the move
 	 */
