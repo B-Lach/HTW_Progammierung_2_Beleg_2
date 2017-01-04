@@ -2,7 +2,6 @@ package gui;
 
 import ai.*;
 import logic.*;
-import java.awt.EventQueue;
 import java.awt.event.*;
 
 import javax.swing.JFrame;
@@ -27,22 +26,6 @@ public class GuiMain extends JFrame {
 	private static FieldType player = FieldType.Player1;
 	private BoardLogic logic;
 	private PaintBoard board;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GuiMain frame = new GuiMain();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * getter method for player
@@ -185,7 +168,6 @@ public class GuiMain extends JFrame {
 	 */
 	public void turnAI(){
 		if(difficulty != null && player == FieldType.Player2){
-			System.out.println("Make AI move: " + difficulty);
 			turn(AI.getNextMove(difficulty, logic, player));
 		}
 	}

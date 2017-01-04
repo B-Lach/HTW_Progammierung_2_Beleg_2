@@ -1,18 +1,40 @@
-import java.util.ArrayList;
+import java.awt.EventQueue;
 
-import ai.AI;
-import ai.Difficulty;
+import ai.*;
+import gui.*;
 import logic.*;
 
+/**
+ * 
+ * @author Benny Lach
+ * Main Class for testing and starting the program
+ */
 public class Main {
 
 	public static void main(String[] args) {
+		// Main Entry Point
+		showUI();
 		// simulate a match with console logging
 //		consoleExampleWithOutput();
 		// test our AI implementation 
-		difficultyTest();
+//		difficultyTest();
 	}
 	
+	/**
+	 * Main entry point for the game  
+	 */
+	private static void showUI() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GuiMain frame = new GuiMain();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	/**
 	 * Method to test our ai implementation
 	 */
