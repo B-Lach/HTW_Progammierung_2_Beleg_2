@@ -4,7 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import logic.*;
-
+/**
+ * Test class for BoardLogic initialization code
+ * 
+ * @author Benny Lach
+ *
+ */
 public class BoardLogicInitTests {
 
 	@Test

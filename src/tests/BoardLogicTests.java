@@ -7,7 +7,12 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import logic.*;
-
+/**
+ * Test class for the BoardLogic implementation
+ * 
+ * @author Benny Lach
+ *
+ */
 public class BoardLogicTests {
 
 	@Test

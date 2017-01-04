@@ -7,7 +7,12 @@ import java.util.ArrayList;
 import org.junit.Test;
 import ai.*;
 import logic.*;
-
+	/**
+	 * Test class for the AI implementation
+	 * 
+	 * @author Benny Lach
+	 *
+	 */
 	public class AITests {
 
 	@Test

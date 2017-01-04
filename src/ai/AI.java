@@ -6,6 +6,7 @@ import java.util.Random;
 import logic.*;
 /**
  * AI Class
+ * 
  * @author Benny Lach
  *
  */

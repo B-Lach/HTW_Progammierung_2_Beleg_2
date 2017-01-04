@@ -5,14 +5,15 @@ import gui.*;
 import logic.*;
 
 /**
+ * Main Class for testing and starting the program
  * 
  * @author Benny Lach
- * Main Class for testing and starting the program
+ * 
  */
 public class Main {
 
 	public static void main(String[] args) {
-		// Main Entry Point
+		// main entry point
 		showUI();
 		// simulate a match with console logging
 //		consoleExampleWithOutput();
