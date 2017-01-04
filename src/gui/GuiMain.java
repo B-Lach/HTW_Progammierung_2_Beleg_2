@@ -77,19 +77,38 @@ public class GuiMain extends JFrame {
 
 		JMenu mnNewGame = new JMenu("New Game");
 		menuBar.add(mnNewGame);
+		
+		JMenu onePlayer = new JMenu("1 Player");
+		JMenu twoPlayer = new JMenu("2 Player");
+		mnNewGame.add(onePlayer);
+		mnNewGame.add(twoPlayer);
+		
+		// Against AI
+		JMenuItem mntmxBoard_AI = new JMenuItem("6x6 Board");
+		onePlayer.add(mntmxBoard_AI);
+		mntmxBoard_AI.addActionListener(new Board6(this, true));
 
+		JMenuItem mntmxBoard_1AI = new JMenuItem("8x8 Board");
+		onePlayer.add(mntmxBoard_1AI);
+		mntmxBoard_1AI.addActionListener(new Board8(this, true));
+
+		JMenuItem mntmxBoard_2AI = new JMenuItem("10x10 Board");
+		onePlayer.add(mntmxBoard_2AI);
+		mntmxBoard_2AI.addActionListener(new Board10(this, true));
+		
+		// Two Player
 		JMenuItem mntmxBoard = new JMenuItem("6x6 Board");
-		mnNewGame.add(mntmxBoard);
-		mntmxBoard.addActionListener(new Board6(this));
+		twoPlayer.add(mntmxBoard);
+		mntmxBoard.addActionListener(new Board6(this, false));
 
 		JMenuItem mntmxBoard_1 = new JMenuItem("8x8 Board");
-		mnNewGame.add(mntmxBoard_1);
-		mntmxBoard_1.addActionListener(new Board8(this));
+		twoPlayer.add(mntmxBoard_1);
+		mntmxBoard_1.addActionListener(new Board8(this, false));
 
 		JMenuItem mntmxBoard_2 = new JMenuItem("10x10 Board");
-		mnNewGame.add(mntmxBoard_2);
-		mntmxBoard_2.addActionListener(new Board10(this));
-
+		twoPlayer.add(mntmxBoard_2);
+		mntmxBoard_2.addActionListener(new Board10(this, false));
+		
 		JMenu mnAiDifficulty = new JMenu("AI Difficulty");
 		menuBar.add(mnAiDifficulty);
 
@@ -121,8 +140,19 @@ public class GuiMain extends JFrame {
 	 * @param size
 	 *            chosen size of the game board
 	 */
-	public void startGame(int size) {
-
+	public void startGame(int size, Boolean againstAI) {
+		// Reset the currentPlayer on game start
+		player = FieldType.Player1;
+		// guarantee that difficulty is null if againstAI is false
+		if (!againstAI) {
+			difficulty = null;
+			}
+		else {
+			// If againstAI is set, make sure the difficulty is set to easy if it wasn't by player
+			if (difficulty == null) { 
+				difficulty = Difficulty.Easy;
+			} 
+		}
 		try {
 			logic = new BoardLogic(size);
 			board = new PaintBoard(logic);
@@ -154,7 +184,8 @@ public class GuiMain extends JFrame {
 	 * Method for turns by the AI
 	 */
 	public void turnAI(){
-		if((difficulty == difficulty.Easy || difficulty == difficulty.Medium || difficulty == difficulty.Hard) && player == FieldType.Player2){
+		if(difficulty != null && player == FieldType.Player2){
+			System.out.println("Make AI move: " + difficulty);
 			turn(AI.getNextMove(difficulty, logic, player));
 		}
 	}
@@ -166,15 +197,17 @@ public class GuiMain extends JFrame {
 	 *
 	 */
 	class Board6 implements ActionListener {
-		GuiMain main;
-
-		public Board6(GuiMain main) {
+		private GuiMain main;
+		private Boolean againstAI;
+		
+		public Board6(GuiMain main, Boolean againstAI) {
 			this.main = main;
+			this.againstAI = againstAI;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			main.startGame(6);
+			main.startGame(6, againstAI);
 		}
 	}
 
@@ -185,13 +218,13 @@ public class GuiMain extends JFrame {
 	 *
 	 */
 	class Board8 extends Board6 {
-		public Board8(GuiMain main) {
-			super(main);
+		public Board8(GuiMain main, Boolean againstAI) {
+			super(main, againstAI);
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			super.main.startGame(8);
+			super.main.startGame(8, super.againstAI);
 		}
 	}
 
@@ -202,13 +235,13 @@ public class GuiMain extends JFrame {
 	 *
 	 */
 	class Board10 extends Board6 {
-		public Board10(GuiMain main) {
-			super(main);
+		public Board10(GuiMain main, Boolean againstAI) {
+			super(main, againstAI);
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			super.main.startGame(10);
+			super.main.startGame(10, super.againstAI);
 		}
 	}
 
