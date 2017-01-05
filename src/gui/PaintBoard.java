@@ -22,7 +22,8 @@ public class PaintBoard extends JPanel {
 	private FieldType[][] board;
 	private ArrayList<FieldPosition> possibleMoves;
 	private Score score1;
-
+	private Boolean playing = false;
+	
 	// indicator for victory condition, is 1 when game is over
 	private int victory = 0;
 
@@ -42,7 +43,16 @@ public class PaintBoard extends JPanel {
 		// the game score
 		score1 = logic.getScore();
 	}
+	
 
+	public void setPlaying(Boolean playing) {
+		this.playing = playing;
+	}
+	
+	public Boolean getPlaying() {
+		return playing;
+	}
+	
 	/**
 	 * method for repainting the board
 	 */
@@ -141,6 +151,7 @@ public class PaintBoard extends JPanel {
 			g.setColor(Color.red);
 			g.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
 			g.drawString("GAME OVER", 200, 40);
+			playing = false;
 		}
 	}
 }

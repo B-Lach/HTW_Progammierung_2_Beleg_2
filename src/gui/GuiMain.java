@@ -26,7 +26,6 @@ public class GuiMain extends JFrame {
 	private static FieldType player = FieldType.Player1;
 	private BoardLogic logic;
 	private PaintBoard board;
-
 	/**
 	 * getter method for player
 	 * 
@@ -139,6 +138,7 @@ public class GuiMain extends JFrame {
 		try {
 			logic = new BoardLogic(size);
 			board = new PaintBoard(logic);
+			board.setPlaying(true);
 			board.setSize(contentPane.getSize().width, contentPane.getSize().width);
 			contentPane.add(board);
 			contentPane.addMouseListener(new MouseListener(this));
@@ -169,6 +169,7 @@ public class GuiMain extends JFrame {
 	public void turnAI(){
 		if(difficulty != null && player == FieldType.Player2){
 			turn(AI.getNextMove(difficulty, logic, player));
+			
 		}
 	}
 
@@ -242,7 +243,9 @@ public class GuiMain extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			main.difficulty = Difficulty.Easy;
+			if( !board.getPlaying()) {
+				main.difficulty = Difficulty.Easy;
+			}
 		}
 	}
 
@@ -259,7 +262,9 @@ public class GuiMain extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			super.main.difficulty = Difficulty.Medium;
+			if( board == null || !board.getPlaying()) {
+				super.main.difficulty = Difficulty.Medium;
+			}
 		}
 	}
 
@@ -277,7 +282,10 @@ public class GuiMain extends JFrame {
 		@Override
 
 		public void actionPerformed(ActionEvent e) {
-			super.main.difficulty = Difficulty.Hard;
+			if( !board.getPlaying()) {
+				super.main.difficulty = Difficulty.Hard;
+			}
+			
 
 		}
 	}
