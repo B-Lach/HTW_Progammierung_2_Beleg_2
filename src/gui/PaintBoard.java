@@ -55,6 +55,7 @@ public class PaintBoard extends JPanel {
 	
 	/**
 	 * method for repainting the board
+	 * @param logic the logic to use
 	 */
 	public void repaint(BoardLogic logic) {
 		score1 = logic.getScore();

@@ -119,8 +119,8 @@ public class GuiMain extends JFrame {
 	/**
 	 * method to initialize the game board in the JFrame
 	 * 
-	 * @param size
-	 *            chosen size of the game board
+	 * @param size chosen size of the game board
+ 	 * @param againstAI Boolean to check if it's a game against the AI
 	 */
 	public void startGame(int size, Boolean againstAI) {
 		// Reset the currentPlayer on game start
